@@ -1,0 +1,19 @@
+.inpForm {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+#searchBtn, #allBtn {
+    width: 100%;
+}
+
+.cardCss {
+    margin: 2px;
+    margin-right: auto;
+    margin-left: auto;
+}
