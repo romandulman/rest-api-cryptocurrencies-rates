@@ -17,7 +17,7 @@ $(document).ready(function () {
         printCountry(url)
     });
 
-
+let i;
     let printCountry = (url) => {
         $.ajax({
             url: url,
@@ -43,6 +43,8 @@ $(document).ready(function () {
 
 `
                     )
+                    i++;
+
                 });
             },
 
