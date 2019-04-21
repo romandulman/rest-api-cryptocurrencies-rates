@@ -40,11 +40,11 @@ var i=0;
                         <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
                         <button class="btn btn-info moreBtn" data-toggle="collapse"   href="${i}" >More Info</button>
-                          <a class="btn btn-primary" data-toggle="collapse" href="#${i}" role="button" aria-expanded="false" aria-controls="${i}">Toggle first element</a>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#${i}" aria-expanded="false" aria-controls="${i}">Toggle second element</button>
 
                       </div>
                  </div>
-                 <div class="collapse multi-collapse " id="${i}">
+                 <div class="collapse multi-collapse" id="${i}">
                      <div class="card card-body">
     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                      </div>
@@ -54,7 +54,6 @@ var i=0;
 `
                     )
                     i++;
-                    console.log(i)
 
                 });
             },
