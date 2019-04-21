@@ -22,20 +22,26 @@ let i;
         $.ajax({
             url: url,
             type: "GET",
+            beforeSend: function () {
+                $("#spinnerSend").show();
+            },
             success: function (response) {
+                $("#spinnerSend").hide();
+
                 response.forEach(function (element) {
                     $('#out').append(
-                        `        <div class="card col-md-2 cardCss">
+                        `        <div class="card col-md-3 cardCss">
             <div class="row no-gutters">
                 <div class="col-auto">
                     <img src="${element.flag}" class="img-fluid" alt="">
                 </div>
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title" id="symOut">${element.symbol}</h4>
+                        <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div>
+  </label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
-                    <button class="btn btn-info" id="allBtn">More Info</button>
-
+                    <button class="btn btn-info moreBtn" >More Info</button>
+  
                     </div>
                 </div>
             </div>
