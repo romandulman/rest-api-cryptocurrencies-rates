@@ -17,7 +17,7 @@ $(document).ready(function () {
         printCountry(url)
     });
 
-let i;
+var i=0;
     let printCountry = (url) => {
         $.ajax({
             url: url,
@@ -37,19 +37,24 @@ let i;
                 </div>
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div>
-  </label>
+                        <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
-                    <button class="btn btn-info moreBtn" >More Info</button>
-  
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <button class="btn btn-info moreBtn" data-toggle="collapse"   href="${i}" >More Info</button>
+                          <a class="btn btn-primary" data-toggle="collapse" href="#${i}" role="button" aria-expanded="false" aria-controls="${i}">Toggle first element</a>
+
+                      </div>
+                 </div>
+                 <div class="collapse multi-collapse " id="${i}">
+                     <div class="card card-body">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                     </div>
+                 </div>
+             </div>
 
 `
                     )
                     i++;
+                    console.log(i)
 
                 });
             },
