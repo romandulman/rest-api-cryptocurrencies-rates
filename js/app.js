@@ -1,19 +1,19 @@
 $(document).ready(function () {
-    $("#allBtn").click(function () {
-        $("#out").html('');
-        url = "https://restcountries.eu/rest/v2/all";
-        printCountry(url)
-    });
+  //  $("#allBtn").click(function () {
+    //    $("#out").html('');
+    //    url = "https://api.coingecko.com/api/v3/coins/list";
+    //    printCountry(url)
+   // });
 
-    $("#cInput").keypress(function () {
-        $("#out").html('');
-        url = "https://restcountries.eu/rest/v2/name/" + $("#cInput").val();
-        printCountry(url)
-    });
+ //   $("#cInput").keypress(function () {
+   //     $("#out").html('');
+   //     url = "https://restcountries.eu/rest/v2/name/" + $("#cInput").val();
+   //     printCountry(url)
+  //  });
 
     $("#searchBtn").click(function () {
         $("#out").html('');
-        url = "https://restcountries.eu/rest/v2/name/" + $("#cInput").val();
+        url = "https://api.coingecko.com/api/v3/coins/" + $("#cInput").val();
         printCountry(url)
     });
 
@@ -25,18 +25,17 @@ $(document).ready(function () {
             success: function (response) {
                 response.forEach(function (element) {
                     $('#out').append(
-                        `        <div class="card col-md-4 cardCss">
+                        `        <div class="card col-md-2 cardCss">
             <div class="row no-gutters">
                 <div class="col-auto">
                     <img src="${element.flag}" class="img-fluid" alt="">
                 </div>
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title" id="nameOut">${element.name}</h4>
-                        <p class="card-text" ><b>Top Level Domain:</b> <span id="domainOut">${element.topLevelDomain}</span></p>
-                        <p class="card-text" ><b>Capital: </b><span id="capOut">${element.capital}</span></p>
-                        <p class="card-text" ><b>Currencies:</b> <span id="currOut">Code: ${element.currencies[0].code
-                            }, Name: ${element.currencies[0].name}, Symbol: ${element.currencies[0].symbol} </span></p>
+                        <h4 class="card-title" id="symOut">${element.symbol}</h4>
+                        <p class="card-text" ><span id="nameOut">${element.name}</span></p>
+                    <button class="btn btn-info" id="allBtn">More Info</button>
+
                     </div>
                 </div>
             </div>
@@ -49,4 +48,7 @@ $(document).ready(function () {
 
         });
     }
+
+    printCountry( "https://api.coingecko.com/api/v3/coins/list");
+
 });
