@@ -17,7 +17,9 @@ $(document).ready(function () {
         printCountry(url)
     });
 
-var i=0;
+
+
+    var i=0;
     let printCountry = (url) => {
         $.ajax({
             url: url,
@@ -39,16 +41,8 @@ var i=0;
                     <div class="card-block px-2">
                         <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
-                        <button class="btn btn-info moreBtn" data-toggle="collapse"   href="${i}" >More Info</button>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#${i}" aria-expanded="false" aria-controls="${i}">Toggle second element</button>
-
-                      </div>
-                 </div>
-                 <div class="collapse multi-collapse" id="${i}">
-                     <div class="card card-body">
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                     </div>
-                 </div>
+                        <button class="btn btn-info moreBtn" id="${i}" onclick="collapseFunc(this.id)" >More Info</button>
+                          <div id="b${i}">ddddd</div>
              </div>
 
 `
@@ -64,3 +58,7 @@ var i=0;
     printCountry( "https://api.coingecko.com/api/v3/coins/list");
 
 });
+
+let collapseFunc = (id) => {
+    $("#b"+id).toggle();
+}
