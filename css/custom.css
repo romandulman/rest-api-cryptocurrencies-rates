@@ -1,29 +1,34 @@
 
-
 h1 {
     font-size: 25px;
 }
-
 
 .cardCss {
     margin: 5px;
     margin-right: auto;
     margin-left: auto;
 }
-.coinCont{
-    margin-top:100px;
+
+.coinCont {
+    margin-top: 100px;
     text-align: center;
 }
-.navBrand{
-   margin-right: 30px ;
+
+.navBrand {
+    margin-right: 30px;
     color: #2e7d32;
     font-weight: bold;
     font-size: 16pt;
 }
-#spinnerSend{
+
+#spinnerSend {
     margin-top: 200px;
     width: 80px;
     height: 80px;
+    position: fixed;
+    z-index: 9999;
+    background-color: white;
+
 }
 
 .switch input {
@@ -31,11 +36,7 @@ h1 {
     opacity: 0;
 }
 
-/**
- * 1. Adjust this to size
- */
-
-.moreBtn{
+.moreBtn {
     margin: 10px;
     height: 30px;
     line-height: 10px;
@@ -56,7 +57,7 @@ h1 {
     width: 1em;
     border-radius: 1em;
     background: #FFF;
-    box-shadow: 0 0.1em 0.3em rgba(0,0,0,0.3);
+    box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);
     -webkit-transition: all 300ms;
     -moz-transition: all 300ms;
     transition: all 300ms;
@@ -69,6 +70,9 @@ h1 {
     background: green;
 
 }
+
+
+
 
 
 

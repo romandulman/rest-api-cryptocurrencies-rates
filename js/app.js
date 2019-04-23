@@ -1,7 +1,9 @@
-var flag =0;
+let flag=0 , i=0;
 
 $(document).ready(function () {
-  //  $("#allBtn").click(function () {
+    localStorage.clear();
+
+    //  $("#allBtn").click(function () {
     //    $("#out").html('');
     //    url = "https://api.coingecko.com/api/v3/coins/list";
     //    printCountry(url)
@@ -18,17 +20,9 @@ $(document).ready(function () {
         url = "https://api.coingecko.com/api/v3/coins/" + $("#cInput").val();
         printCountry(url)
     });
-
-
-
-
-
     printCountry( "https://api.coingecko.com/api/v3/coins/list");
-
 });
 
-
-var i=0;
 let printCountry = (url) => {
     $.ajax({
         url: url,
@@ -65,14 +59,19 @@ let printCountry = (url) => {
 }
 
 let collapseFunc = (coinId) => {
-    $("#b"+coinId).toggle();
 
-    let url = 'https://api.coingecko.com/api/v3/coins/'+coinId
+  //  if($("#b"+coinId).is(":visible")) $("#b"+coinId).toggle();
+   // if($("#b"+coinId).is(":hidden")) $("#b"+coinId).show();
+
+ $("#b"+coinId).toggle();
+
+    let url = 'https://api.coingecko.com/api/v3/coins/'+coinId;
     var retrievedObject1 = JSON.parse(localStorage.getItem(coinId));
 
-    if (retrievedObject1 == null ){
-        flag = 0
-    }
+   // if (retrievedObject1 == null ){
+  //      flag = 0
+  //  }
+   if(retrievedObject1 == null)  flag = 0 ;
 
         if (flag == 0){
     $.ajax({
@@ -87,10 +86,11 @@ let collapseFunc = (coinId) => {
            // alert(response.market_data.current_price.usd)
             $("#b"+coinId).append(
 
-                `<p>${response.market_data.current_price.usd} <b>USD</b></p>
-                 <p>${response.market_data.current_price.eur} <b>EUR</b></p> 
-                 <p>${response.market_data.current_price.ils} <b>ILS</b></p>
-`
+                `
+                 <p><b>Conversion Rates </b></p>
+                 <p>${response.market_data.current_price.usd} <b>$ USD</b></p>
+                 <p>${response.market_data.current_price.eur} <b>€ EUR</b></p> 
+                 <p>${response.market_data.current_price.ils} <b>₪ ILS</b></p>`
         )
 
             var testObject = {'usd' : response.market_data.current_price.usd,
@@ -102,7 +102,7 @@ let collapseFunc = (coinId) => {
             localStorage.setItem(coinId, JSON.stringify(testObject));
 
             flag = 1;
-            setTimeout(() => flag = 0, 60000);
+            setTimeout(() => flag = 0, 120000);
 
 
         },
