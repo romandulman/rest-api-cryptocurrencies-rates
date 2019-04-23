@@ -1,3 +1,5 @@
+var flag =0;
+
 $(document).ready(function () {
   //  $("#allBtn").click(function () {
     //    $("#out").html('');
@@ -62,11 +64,17 @@ let printCountry = (url) => {
     });
 }
 
-
 let collapseFunc = (coinId) => {
     $("#b"+coinId).toggle();
 
     let url = 'https://api.coingecko.com/api/v3/coins/'+coinId
+    var retrievedObject1 = JSON.parse(localStorage.getItem(coinId));
+
+    if (retrievedObject1 == null ){
+        flag = 0
+    }
+
+        if (flag == 0){
     $.ajax({
         url: url,
         type: "GET",
@@ -83,14 +91,37 @@ let collapseFunc = (coinId) => {
                  <p>${response.market_data.current_price.eur} <b>EUR</b></p> 
                  <p>${response.market_data.current_price.ils} <b>ILS</b></p>
 `
-            )
+        )
+
+            var testObject = {'usd' : response.market_data.current_price.usd,
+               'eur' : response.market_data.current_price.eur,
+               'ils' : response.market_data.current_price.ils
+
+                };
+
+            localStorage.setItem(coinId, JSON.stringify(testObject));
+
+            flag = 1;
+            setTimeout(() => flag = 0, 60000);
 
 
         },
 
     });
 
+    } else{
 
+        var retrievedObject = JSON.parse(localStorage.getItem(coinId));
+        $("#b"+coinId).html("");
+
+        $("#b"+coinId).append(
+
+            `<p>${retrievedObject.usd} <b>USD</b></p>
+                 <p>${retrievedObject.eur} <b>EUR</b></p> 
+                 <p>${retrievedObject.ils} <b>ILS</b></p>
+`
+        )
+    }
 
    // alert(coinId)
 }
