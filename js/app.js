@@ -43,13 +43,14 @@ let printCountry = (url) => {
                     <div class="card-block px-2">
                         <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
-                        <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
                           <div class="collapse" id="b${element.id}"></div>
+                                                  <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
+
              </div> `
                 )
 
                 i++;
-                
+
             });
         },
 
@@ -84,6 +85,7 @@ let collapseFunc = (coinId) => {
                 // alert(response.market_data.current_price.usd)
                 $("#b" + coinId).append(
                     `
+                 <img src="${response.image.small}"/>
                  <p><b>Conversion Rates </b></p>
                  <p>${response.market_data.current_price.usd} <b>$ USD</b></p>
                  <p>${response.market_data.current_price.eur} <b>€ EUR</b></p> 
@@ -93,7 +95,8 @@ let collapseFunc = (coinId) => {
                 var testObject = {
                     'usd': response.market_data.current_price.usd,
                     'eur': response.market_data.current_price.eur,
-                    'ils': response.market_data.current_price.ils
+                    'ils': response.market_data.current_price.ils,
+                    'img' : response.image.small
                 };
                 localStorage.setItem(coinId, JSON.stringify(testObject));
 
@@ -107,7 +110,10 @@ let collapseFunc = (coinId) => {
         var retrievedObject = JSON.parse(localStorage.getItem(coinId));
         $("#b" + coinId).html("");
         $("#b" + coinId).append(
-            `<p>${retrievedObject.usd} <b>USD</b></p>
+            `
+                  <img src="${retrievedObject.img}"/>
+                 <p><b>Conversion Rates </b></p>
+                  <p>${retrievedObject.usd} <b>USD</b></p>
                  <p>${retrievedObject.eur} <b>EUR</b></p> 
                  <p>${retrievedObject.ils} <b>ILS</b></p>`
         )
