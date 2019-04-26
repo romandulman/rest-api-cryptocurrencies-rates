@@ -25,18 +25,18 @@
         <div class="collapse navbar-collapse" id="navb">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <button type="button" class="btn btn-light">Home</button>
+                    <button type="button" class="btn btn-light" id="homeBtn">Home</button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="btn btn-light">Live Reports</button>
+                    <button type="button" class="btn btn-light" id="liveRepBtn">Live Reports</button>
                 </li>
                 <li class="nav-item ">
-                    <button type="button" class="btn btn-light">About</button>
+                    <button type="button" class="btn btn-light" id="aboutBtn">About</button>
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" id="srchFld">
+                <button class="btn btn-success my-2 my-sm-0" type="button" id="srchBtn">Search</button>
             </div>
         </div>
     </nav>
@@ -45,6 +45,7 @@
 
 
 <br>
+
 <div class="container coinCont">
     <div class="spinnerCont">
     <div class="spinner-border text-primary " id="spinnerSend" role="status">
@@ -54,6 +55,9 @@
 
     </div>
 </div>
+
+
+
 
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

@@ -71,6 +71,12 @@ h1 {
 
 }
 
+.errMsg{
+    font-size: 14pt;
+    color: red;
+    text-align: right;
+    margin: 25px;
+}
 
 
 

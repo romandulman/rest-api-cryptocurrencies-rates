@@ -3,21 +3,42 @@ let flag = 0, i = 0;
 $(document).ready(function () {
     localStorage.clear();
 
-    //  $("#allBtn").click(function () {
+    $("#liveRepBtn").click(function () {
+        $('#out').html('');
+        $('#out').append(
+
+
+        )
+
+    });
+    $("#aboutBtn").click(function () {
+        $('#out').html('');
+        $('#out').append(
+`<div class="col-md-4"></div>
+
+
+<div class="col-md-4"><h1>About</h1>
+<p></p>
+
+
+</div>
+<div class="col-md-4"></div>
+
+`
+
+        )
+
+    });
+
+    //   /   $("#cInput").keypress(function () {
     //    $("#out").html('');
-    //    url = "https://api.coingecko.com/api/v3/coins/list";
-    //    printCountry(url)
-    // });
-
-    //   $("#cInput").keypress(function () {
-    //     $("#out").html('');
-    //     url = "https://restcountries.eu/rest/v2/name/" + $("#cInput").val();
+    //    url = "https://restcountries.eu/rest/v2/name/" + $("#cInput").val();
     //     printCountry(url)
-    //  });
+    //});
 
-    $("#searchBtn").click(function () {
+    $("#srchBtn").click(function () {
         $("#out").html('');
-        url = "https://api.coingecko.com/api/v3/coins/" + $("#cInput").val();
+        url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
         printCountry(url)
     });
     printCountry("https://api.coingecko.com/api/v3/coins/list");
@@ -32,11 +53,11 @@ let printCountry = (url) => {
         },
         success: function (response) {
             $("#spinnerSend").hide();
+            if (url == "https://api.coingecko.com/api/v3/coins/list") {
+                response.forEach(function (element) {
 
-            response.forEach(function (element) {
-
-                $('#out').append(
-                    `        <div class="card col-md-3 cardCss">
+                    $('#out').append(
+                        `        <div class="card col-md-3 cardCss">
             <div class="row no-gutters">
 
                 <div class="col">
@@ -47,12 +68,39 @@ let printCountry = (url) => {
                                                   <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
 
              </div> `
+                    )
+
+                    i++;
+
+                });
+            }else{
+                $('#out').append(
+                    `        <div class="card col-md-3 cardCss">
+            <div class="row no-gutters">
+
+                <div class="col">
+                    <div class="card-block px-2">
+                        <h4 class="card-title" id="symOut">${response.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
+                        <p class="card-text" ><span id="nameOut">${response.name}</span></p>
+                          <div class="collapse" id="b${response.id}"></div>
+                                                  <button class="btn btn-info moreBtn" id="${response.id}" onclick="collapseFunc(this.id)" >More Info</button>
+
+             </div> `
                 )
+            }
 
-                i++;
 
-            });
         },
+        statusCode: {
+            404: function(){
+                $("#spinnerSend").hide();
+                $('#out').append(
+                    `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
+
+                )
+            }
+        }
+
 
     });
 }
@@ -96,7 +144,7 @@ let collapseFunc = (coinId) => {
                     'usd': response.market_data.current_price.usd,
                     'eur': response.market_data.current_price.eur,
                     'ils': response.market_data.current_price.ils,
-                    'img' : response.image.small
+                    'img': response.image.small
                 };
                 localStorage.setItem(coinId, JSON.stringify(testObject));
 
