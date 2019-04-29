@@ -64,13 +64,13 @@ let printCountry = (url) => {
                     <div class="card-block px-2">
                         <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
-                          <div class="collapse" id="b${element.id}"></div>
+                          <div class="collapse" id="${element.id}"></div>
                                                   <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
 
              </div> `
                     )
 
-                    i++;
+                  ;
 
                 });
             }else{
@@ -82,7 +82,7 @@ let printCountry = (url) => {
                     <div class="card-block px-2">
                         <h4 class="card-title" id="symOut">${response.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${response.name}</span></p>
-                          <div class="collapse" id="b${response.id}"></div>
+                          <div class="collapse" id="${response.id}"></div>
                                                   <button class="btn btn-info moreBtn" id="${response.id}" onclick="collapseFunc(this.id)" >More Info</button>
 
              </div> `
@@ -110,7 +110,7 @@ let collapseFunc = (coinId) => {
     //  if($("#b"+coinId).is(":visible")) $("#b"+coinId).toggle();
     // if($("#b"+coinId).is(":hidden")) $("#b"+coinId).show();
 
-    $("#b" + coinId).toggle();
+    $("#" + coinId).toggle();
 
     let url = 'https://api.coingecko.com/api/v3/coins/' + coinId;
     var retrievedObject1 = JSON.parse(localStorage.getItem(coinId));
@@ -129,16 +129,18 @@ let collapseFunc = (coinId) => {
             },
             success: function (response) {
                 $("#spinnerSend").hide();
-                $("#b" + coinId).html("");
+             //   $("#" + coinId).html("");
                 // alert(response.market_data.current_price.usd)
-                $("#b" + coinId).append(
-                    `
-                 <img src="${response.image.small}"/>
-                 <p><b>Conversion Rates </b></p>
-                 <p>${response.market_data.current_price.usd} <b>$ USD</b></p>
-                 <p>${response.market_data.current_price.eur} <b>€ EUR</b></p> 
-                 <p>${response.market_data.current_price.ils} <b>₪ ILS</b></p>`
-                )
+              //   $("#" + coinId).append(
+              //       `
+              //     <br>
+              //    <img src="${response.image.small}"/>
+              //    <p><b>Conversion Rates </b></p>
+              //    <p>${response.market_data.current_price.usd} <b>$ USD</b></p>
+              //    <p>${response.market_data.current_price.eur} <b>€ EUR</b></p>
+              //   <p>${response.market_data.current_price.ils} <b>₪ ILS</b></p>`
+              //   )
+                printMoreInfo (coinId,response.image.small,response.market_data.current_price.usd,response.market_data.current_price.eur,response.market_data.current_price.ils)
 
                 var testObject = {
                     'usd': response.market_data.current_price.usd,
@@ -156,15 +158,32 @@ let collapseFunc = (coinId) => {
 
     } else {
         var retrievedObject = JSON.parse(localStorage.getItem(coinId));
-        $("#b" + coinId).html("");
-        $("#b" + coinId).append(
-            `
-                  <img src="${retrievedObject.img}"/>
+     //   $("#" + coinId).html("");
+     //   $("#" + coinId).append(
+         //   `
+          //        <img src="${retrievedObject.img}"/>
+             //     <br>
+             //    <p><b>Conversion Rates </b></p>
+              //    <p>${retrievedObject.usd} <b>USD</b></p>
+             //    <p>${retrievedObject.eur} <b>EUR</b></p>
+              //   <p>${retrievedObject.ils} <b>ILS</b></p>`
+    //    )
+        printMoreInfo (coinId,retrievedObject.img,retrievedObject.usd,retrievedObject.eur,retrievedObject.ils)
+
+
+        }
+}
+
+printMoreInfo =(coinId,img,usd,eur,ils)=>{
+    $("#" + coinId).html("");
+    $("#" + coinId).append(
+        `
+                  <img src="${img}"/>
+                  <br>
                  <p><b>Conversion Rates </b></p>
-                  <p>${retrievedObject.usd} <b>USD</b></p>
-                 <p>${retrievedObject.eur} <b>EUR</b></p> 
-                 <p>${retrievedObject.ils} <b>ILS</b></p>`
-        )
-    }
+                  <p>${usd} <b>USD</b></p>
+                 <p>${eur} <b>EUR</b></p> 
+                 <p>${ils} <b>ILS</b></p>`
+    )
 }
 
