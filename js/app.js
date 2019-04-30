@@ -62,7 +62,7 @@ let printCountry = (url) => {
 
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
+                        <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" id="${element.id}" onchange="checkCoinCount(this.id)" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
                           <div class="collapse" id="${element.id}"></div>
                                                   <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
@@ -80,7 +80,7 @@ let printCountry = (url) => {
 
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title" id="symOut">${response.symbol}</h4><label class="switch"><input type="checkbox" />    <div></div></label>
+                        <h4 class="card-title" id="symOut">${response.symbol}</h4><label class="switch"><input type="checkbox" id="${response.id}" onchange="checkCoinCount(this.id)" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${response.name}</span></p>
                           <div class="collapse" id="${response.id}"></div>
                                                   <button class="btn btn-info moreBtn" id="${response.id}" onclick="collapseFunc(this.id)" >More Info</button>
@@ -91,12 +91,13 @@ let printCountry = (url) => {
 
 
         },
+
+
         statusCode: {
-            404: function(){
+            404: function () {
                 $("#spinnerSend").hide();
                 $('#out').append(
                     `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
-
                 )
             }
         }
@@ -105,6 +106,34 @@ let printCountry = (url) => {
     });
 }
 
+let countCoins = 0;
+let checkCoinCount = (c) => {
+
+
+    if ($("#" + c).is(':checked')) {
+       // if (countCoins < 5) {
+            countCoins += 1
+      //  }
+        if (countCoins > 5) {
+            $("#" + c ).prop( "checked" , false )
+          //  alert("too manny")
+            countCoins -= 1;
+            $('#coinModal').modal('show');
+
+        }
+       // alert(countCoins)
+    }
+    else if ($("#" + c).is(':checked') == false) {
+        countCoins -= 1
+        alert(countCoins)
+
+    }
+    ;
+
+
+
+
+}
 let collapseFunc = (coinId) => {
 
     //  if($("#b"+coinId).is(":visible")) $("#b"+coinId).toggle();
