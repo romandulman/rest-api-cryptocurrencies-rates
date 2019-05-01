@@ -125,6 +125,11 @@ let idUpperCase =  id.toString().toUpperCase();
           //  alert("too manny")
             countCoins -= 1;
             $('#coinModal').modal('show');
+            ('#modalCoinList').html('');
+            $('#modalCoinList').append(
+
+            )
+
 
         }
 
@@ -135,17 +140,24 @@ let idUpperCase =  id.toString().toUpperCase();
         alert(countCoins)
 
     }
-    for (let i = 0; i < conisToView.length; i++) {
-        text += cars[i] + "<br>";
-        conisToView[i]
-    }
 
-  //  let conisUrl =   "https://min-api-cryptocompare.com/data/pricemulti?fsyms="+conisToView[0]+","+conisToView[1]+","+conisToView[2]+","+conisToView[3]+","+conisToView[4]+"&tsyms=USD"
+    // for (let i = 0; i < conisToView.length; i++) {
+    //     text += cars[i] + "<br>";
+    //     conisToView[i]
+    // }
+
 
 
 
 
 };
+
+let updateChart=()=>{
+    let conisUrl =   "https://min-api-cryptocompare.com/data/pricemulti?fsyms="+conisToView[0]+","+conisToView[1]+","+conisToView[2]+","+conisToView[3]+","+conisToView[4]+"&tsyms=USD"
+
+}
+
+
 let collapseFunc = (coinId) => {
 
     //  if($("#b"+coinId).is(":visible")) $("#b"+coinId).toggle();
