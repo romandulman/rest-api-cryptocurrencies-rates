@@ -62,9 +62,9 @@ let printCountry = (url) => {
 
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" id="${element.id}" onchange="checkCoinCount(this.id)" />    <div></div></label>
+                        <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" id="${element.symbol}" onchange="checkCoinCount(this.id)" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${element.name}</span></p>
-                          <div class="collapse" id="${element.id}"></div>
+                          <div class="collapse" id="N${element.id}"></div>
                                                   <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
 
              </div> `
@@ -80,7 +80,7 @@ let printCountry = (url) => {
 
                 <div class="col">
                     <div class="card-block px-2">
-                        <h4 class="card-title" id="symOut">${response.symbol}</h4><label class="switch"><input type="checkbox" id="${response.id}" onchange="checkCoinCount(this.id)" />    <div></div></label>
+                        <h4 class="card-title" id="symOut">${response.symbol}</h4><label class="switch"><input type="checkbox" id="${response.symbol}" onchange="checkCoinCount(this.id)" />    <div></div></label>
                         <p class="card-text" ><span id="nameOut">${response.name}</span></p>
                           <div class="collapse" id="${response.id}"></div>
                                                   <button class="btn btn-info moreBtn" id="${response.id}" onclick="collapseFunc(this.id)" >More Info</button>
@@ -107,39 +107,51 @@ let printCountry = (url) => {
 }
 
 let countCoins = 0;
-let checkCoinCount = (c) => {
+var  conisToView = [];
 
+let checkCoinCount = (id) => {
 
-    if ($("#" + c).is(':checked')) {
-       // if (countCoins < 5) {
-            countCoins += 1
-      //  }
+let idUpperCase =  id.toString().toUpperCase();
+
+    if ($("#" + id).is(':checked')) {
+
+        countCoins += 1;
+
+        conisToView.push(idUpperCase)
+        console.log(conisToView)
+
         if (countCoins > 5) {
-            $("#" + c ).prop( "checked" , false )
+            $("#" + id ).prop( "checked" , false )
           //  alert("too manny")
             countCoins -= 1;
             $('#coinModal').modal('show');
 
         }
+
        // alert(countCoins)
     }
-    else if ($("#" + c).is(':checked') == false) {
+    else if ($("#" + id).is(':checked') == false) {
         countCoins -= 1
         alert(countCoins)
 
     }
-    ;
+    for (let i = 0; i < conisToView.length; i++) {
+        text += cars[i] + "<br>";
+        conisToView[i]
+    }
+
+  //  let conisUrl =   "https://min-api-cryptocompare.com/data/pricemulti?fsyms="+conisToView[0]+","+conisToView[1]+","+conisToView[2]+","+conisToView[3]+","+conisToView[4]+"&tsyms=USD"
 
 
 
 
-}
+};
 let collapseFunc = (coinId) => {
 
     //  if($("#b"+coinId).is(":visible")) $("#b"+coinId).toggle();
     // if($("#b"+coinId).is(":hidden")) $("#b"+coinId).show();
 
-    $("#" + coinId).toggle();
+    $("#N" + coinId).toggle();
 
     let url = 'https://api.coingecko.com/api/v3/coins/' + coinId;
     var retrievedObject1 = JSON.parse(localStorage.getItem(coinId));
@@ -204,8 +216,8 @@ let collapseFunc = (coinId) => {
 }
 
 printMoreInfo =(coinId,img,usd,eur,ils)=>{
-    $("#" + coinId).html("");
-    $("#" + coinId).append(
+    $("#N" + coinId).html("");
+    $("#N" + coinId).append(
         `
                   <img src="${img}"/>
                   <br>
