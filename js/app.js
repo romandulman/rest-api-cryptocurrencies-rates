@@ -19,7 +19,7 @@ $(document).ready(function () {
         $('#outReports').hide();
         $('#out').html('');
         $('#out').append(
-`<div class="col-md-4"></div>
+            `<div class="col-md-4"></div>
 
 <div class="col-md-4"><h1>About</h1>
 <p></p>
@@ -29,7 +29,6 @@ $(document).ready(function () {
 <div class="col-md-4"></div>
 
 `
-
         )
 
     });
@@ -61,7 +60,6 @@ let printCoins = (url) => {
                 response.forEach(function (element) {
 
                     $('#out').append(
-
                         `  
                     <div class=" col-lg-3 col-md-6 ">
 
@@ -79,10 +77,10 @@ let printCoins = (url) => {
               `
                     )
 
-                  ;
+                    ;
 
                 });
-            }else{
+            } else {
                 $('#out').append(
                     `         <div class=" col-lg-3 col-md-6 SingleColCss ">
 
@@ -118,11 +116,11 @@ let printCoins = (url) => {
 }
 
 let countCoins = 0;
-var  conisToView = [];
+var conisToView = [];
 
 let checkCoinCount = (id) => {
 
-let idUpperCase =  id.toString().toUpperCase();
+    let idUpperCase = id.toString().toUpperCase();
 
     if ($("#" + id).is(':checked')) {
 
@@ -132,8 +130,8 @@ let idUpperCase =  id.toString().toUpperCase();
         console.log(conisToView)
 
         if (countCoins > 5) {
-            $("#" + id ).prop( "checked" , false )
-          //  alert("too manny")
+            $("#" + id).prop("checked", false)
+            //  alert("too manny")
             countCoins -= 1;
             $('#coinModal').modal('show');
             ('#modalCoinList').html('');
@@ -144,7 +142,7 @@ let idUpperCase =  id.toString().toUpperCase();
 
         }
 
-       // alert(countCoins)
+        // alert(countCoins)
     }
     else if ($("#" + id).is(':checked') == false) {
         countCoins -= 1
@@ -158,14 +156,14 @@ let idUpperCase =  id.toString().toUpperCase();
     // }
 
 
-   // alert(conisToView[0])
+    // alert(conisToView[0])
 
     updateChart();
 
 };
 
-let updateChart=()=>{
-    let conisUrl =   "https://min-api.cryptocompare.com/data/pricemulti?fsyms="+conisToView[0]+","+conisToView[1]+","+conisToView[2]+","+conisToView[3]+","+conisToView[4]+"&tsyms=USD"
+let updateChart = () => {
+    let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + conisToView[0] + "," + conisToView[1] + "," + conisToView[2] + "," + conisToView[3] + "," + conisToView[4] + "&tsyms=USD"
 
 //alert(conisToView[0])
 
@@ -287,31 +285,22 @@ let updateChart=()=>{
                 options.data[2].legendText = "Turbine 3 : " + yValue3 + "Wh";
                 $("#chartContainer").CanvasJSChart().render();
             }
+
 // generates first set of dataPoints
             updateChart(100);
-            setInterval(function () { updateChart() }, updateInterval);
+            setInterval(function () {
+                updateChart()
+            }, updateInterval);
 
 
+            //    $('#outReports').append(
+            //           `
+            //      `
+            //      )
 
 
-
-
-
-
-
-
-
-
-
-
-        //    $('#outReports').append(
-       //           `
-         //      `
-       //      )
-
-
-         //   alert(response[conisToView[0]].USD)
-         //   alert(response[conisToView[1]].USD)
+            //   alert(response[conisToView[0]].USD)
+            //   alert(response[conisToView[1]].USD)
 
 
         },
@@ -328,8 +317,6 @@ let updateChart=()=>{
 
 
     });
-
-
 
 
 };
@@ -359,18 +346,18 @@ let collapseFunc = (coinId) => {
             },
             success: function (response) {
                 $("#spinnerSend").hide();
-             //   $("#" + coinId).html("");
+                //   $("#" + coinId).html("");
                 // alert(response.market_data.current_price.usd)
-              //   $("#" + coinId).append(
-              //       `
-              //     <br>
-              //    <img src="${response.image.small}"/>
-              //    <p><b>Conversion Rates </b></p>
-              //    <p>${response.market_data.current_price.usd} <b>$ USD</b></p>
-              //    <p>${response.market_data.current_price.eur} <b>€ EUR</b></p>
-              //   <p>${response.market_data.current_price.ils} <b>₪ ILS</b></p>`
-              //   )
-                printMoreInfo (coinId,response.image.small,response.market_data.current_price.usd,response.market_data.current_price.eur,response.market_data.current_price.ils)
+                //   $("#" + coinId).append(
+                //       `
+                //     <br>
+                //    <img src="${response.image.small}"/>
+                //    <p><b>Conversion Rates </b></p>
+                //    <p>${response.market_data.current_price.usd} <b>$ USD</b></p>
+                //    <p>${response.market_data.current_price.eur} <b>€ EUR</b></p>
+                //   <p>${response.market_data.current_price.ils} <b>₪ ILS</b></p>`
+                //   )
+                printMoreInfo(coinId, response.image.small, response.market_data.current_price.usd, response.market_data.current_price.eur, response.market_data.current_price.ils)
 
                 var testObject = {
                     'usd': response.market_data.current_price.usd,
@@ -388,23 +375,23 @@ let collapseFunc = (coinId) => {
 
     } else {
         var retrievedObject = JSON.parse(localStorage.getItem(coinId));
-     //   $("#" + coinId).html("");
-     //   $("#" + coinId).append(
-         //   `
-          //        <img src="${retrievedObject.img}"/>
-             //     <br>
-             //    <p><b>Conversion Rates </b></p>
-              //    <p>${retrievedObject.usd} <b>USD</b></p>
-             //    <p>${retrievedObject.eur} <b>EUR</b></p>
-              //   <p>${retrievedObject.ils} <b>ILS</b></p>`
-    //    )
-        printMoreInfo (coinId,retrievedObject.img,retrievedObject.usd,retrievedObject.eur,retrievedObject.ils)
+        //   $("#" + coinId).html("");
+        //   $("#" + coinId).append(
+        //   `
+        //        <img src="${retrievedObject.img}"/>
+        //     <br>
+        //    <p><b>Conversion Rates </b></p>
+        //    <p>${retrievedObject.usd} <b>USD</b></p>
+        //    <p>${retrievedObject.eur} <b>EUR</b></p>
+        //   <p>${retrievedObject.ils} <b>ILS</b></p>`
+        //    )
+        printMoreInfo(coinId, retrievedObject.img, retrievedObject.usd, retrievedObject.eur, retrievedObject.ils)
 
 
-        }
+    }
 }
 
-printMoreInfo =(coinId,img,usd,eur,ils)=>{
+printMoreInfo = (coinId, img, usd, eur, ils) => {
     $("#N" + coinId).html("");
     $("#N" + coinId).append(
         `
