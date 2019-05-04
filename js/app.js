@@ -147,13 +147,61 @@ let idUpperCase =  id.toString().toUpperCase();
     // }
 
 
+   // alert(conisToView[0])
 
-
+    updateChart();
 
 };
 
 let updateChart=()=>{
-    let conisUrl =   "https://min-api-cryptocompare.com/data/pricemulti?fsyms="+conisToView[0]+","+conisToView[1]+","+conisToView[2]+","+conisToView[3]+","+conisToView[4]+"&tsyms=USD"
+    let conisUrl =   "https://min-api.cryptocompare.com/data/pricemulti?fsyms="+conisToView[0]+","+conisToView[1]+","+conisToView[2]+","+conisToView[3]+","+conisToView[4]+"&tsyms=USD"
+
+//alert(conisToView[0])
+
+    $.ajax({
+        url: conisUrl,
+        type: "GET",
+
+        success: function (response) {
+               //  response.forEach(function (element) {
+               //
+               //  //    $('#out').append(
+               //  //        `
+               //
+               //    //      `
+               //  //    )
+               //      alert(element[0])
+               //
+               // });
+            // let r = response.ZRX.USD
+let c = "ZCN"
+            alert(response[c].USD)
+            // var string1 = "";
+            // var object1 = response;
+            //
+            // for (var property1 in object1) {
+            //    // string1 += ;
+            //     console.log(object1["ZCN"]);
+            // }
+
+
+        },
+
+
+        statusCode: {
+            404: function () {
+                $("#spinnerSend").hide();
+                $('#out').append(
+                    `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
+                )
+            }
+        }
+
+
+    });
+
+
+
 
 }
 
