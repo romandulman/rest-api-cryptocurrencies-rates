@@ -5,10 +5,13 @@ h1 {
 
 .cardCss {
     margin: 5px;
+
+}
+.SingleColCss {
     margin-right: auto;
     margin-left: auto;
+    max-width: 250px;
 }
-
 .coinCont {
     margin-top: 100px;
     text-align: center;
@@ -29,6 +32,10 @@ h1 {
     z-index: 9999;
     background-color: white;
 
+}
+.spinnerCont{
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .switch input {
@@ -79,6 +86,9 @@ h1 {
 }
 .moreInfoP{
     margin-bottom: -15px;
+}
+#outReports{
+    display: none;
 }
 
 
