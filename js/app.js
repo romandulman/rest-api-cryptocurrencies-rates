@@ -45,7 +45,55 @@ $(document).ready(function () {
         printCoins(url)
     });
     printCoins("https://api.coingecko.com/api/v3/coins/list");
+
+
+
+
 });
+let checkCoinCount = (id) => {
+
+    let idUpperCase = id.toString().toUpperCase();
+
+    if ($("#" + id).is(':checked')) {
+
+        countCoins += 1;
+
+        conisToView.push(idUpperCase)
+        console.log(conisToView)
+
+        if (countCoins > 5) {
+            $("#" + id).prop("checked", false)
+            //  alert("too manny")
+            countCoins -= 1;
+
+            window.$('#coinModal').modal('show');
+            $('#modalCoinList').html('');
+            $('#modalCoinList').append(
+`hhhh`
+            )
+
+
+        }
+
+        // alert(countCoins)
+    }
+    else if ($("#" + id).is(':checked') == false) {
+        countCoins -= 1
+        alert(countCoins)
+
+    }
+
+    // for (let i = 0; i < conisToView.length; i++) {
+    //     text += cars[i] + "<br>";
+    //     conisToView[i]
+    // }
+
+
+    // alert(conisToView[0])
+
+    updateChart();
+
+};
 
 let printCoins = (url) => {
     $.ajax({
@@ -118,49 +166,6 @@ let printCoins = (url) => {
 let countCoins = 0;
 var conisToView = [];
 
-let checkCoinCount = (id) => {
-
-    let idUpperCase = id.toString().toUpperCase();
-
-    if ($("#" + id).is(':checked')) {
-
-        countCoins += 1;
-
-        conisToView.push(idUpperCase)
-        console.log(conisToView)
-
-        if (countCoins > 5) {
-            $("#" + id).prop("checked", false)
-            //  alert("too manny")
-            countCoins -= 1;
-            $('#coinModal').modal('show');
-            ('#modalCoinList').html('');
-            $('#modalCoinList').append(
-
-            )
-
-
-        }
-
-        // alert(countCoins)
-    }
-    else if ($("#" + id).is(':checked') == false) {
-        countCoins -= 1
-        alert(countCoins)
-
-    }
-
-    // for (let i = 0; i < conisToView.length; i++) {
-    //     text += cars[i] + "<br>";
-    //     conisToView[i]
-    // }
-
-
-    // alert(conisToView[0])
-
-    updateChart();
-
-};
 
 let updateChart = () => {
     let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + conisToView[0] + "," + conisToView[1] + "," + conisToView[2] + "," + conisToView[3] + "," + conisToView[4] + "&tsyms=USD"
@@ -179,7 +184,7 @@ let updateChart = () => {
             var dataPoints3 = [];
             var dataPoints4 = [];
             var dataPoints5 = [];
-             var mainText,coin1,coin2,coin3,coin4,coin5
+            var mainText, coin1, coin2, coin3, coin4, coin5
             var updateInterval = 2000;
 // initial value
             var yValue1 = 0;
@@ -232,7 +237,7 @@ let updateChart = () => {
                         showInLegend: true,
                         name: coin3,
                         dataPoints: dataPoints3
-                    },{
+                    }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00Wh",
@@ -262,7 +267,6 @@ let updateChart = () => {
             }
 
 
-
             var time = new Date;
 // starting at 10.00 am
             time.setHours(10);
@@ -272,7 +276,7 @@ let updateChart = () => {
 
             function updateChart(count) {
                 count = count || 1;
-                var deltaY1, deltaY2, deltaY3,deltaY4,deltaY5 ;
+                var deltaY1, deltaY2, deltaY3, deltaY4, deltaY5;
                 for (var i = 0; i < count; i++) {
                     time.setTime(time.getTime() + updateInterval);
                     // deltaY1 = -1 + Math.random() * (1 + 1);
@@ -295,19 +299,19 @@ let updateChart = () => {
                     });
                     dataPoints2.push({
                         x: time.getTime(),
-                        y: (response[conisToView[1]].USD == undefined) ? 0 : response[conisToView[1]].USD
+                        y: (typeof response[conisToView[1]] === 'undefined') ? 0 : response[conisToView[1]].USD
                     });
                     dataPoints3.push({
                         x: time.getTime(),
-                        y: response[conisToView[2]].USD
+                        y: (typeof response[conisToView[2]] === 'undefined') ? 0 : response[conisToView[2]].USD
                     });
                     dataPoints4.push({
                         x: time.getTime(),
-                        y: response[conisToView[3]].USD
+                        y: (typeof response[conisToView[3]] === 'undefined') ? 0 : response[conisToView[3]].USD
                     });
                     dataPoints5.push({
                         x: time.getTime(),
-                        y: response[conisToView[4]].USD
+                        y: (typeof response[conisToView[4]] === 'undefined') ? 0 : response[conisToView[4]].USD
                     });
                 }
 
@@ -317,12 +321,12 @@ let updateChart = () => {
                 // options.data[2].legendText = coin3 + "," + yValue3 + "$";
                 // options.data[3].legendText = coin4 + "," + yValue3 + "$";
                 // options.data[4].legendText = coin5 + "," + yValue3 + "$";
-console.log(response[conisToView[0]].USD)
+                console.log(response[conisToView[0]].USD)
                 options.data[0].legendText = conisToView[0] + "to USD";
-                options.data[1].legendText = coin2 + "to USD";
-                options.data[2].legendText = coin3 + "to USD";
-                options.data[3].legendText = coin4 + "to USD";
-                options.data[4].legendText = coin5 + "to USD";
+                options.data[1].legendText = conisToView[1] + "to USD";
+                options.data[2].legendText = conisToView[2] + "to USD";
+                options.data[3].legendText = conisToView[3] + "to USD";
+                options.data[4].legendText = conisToView[4] + "to USD";
 
                 $("#chartContainer").CanvasJSChart().render();
             }
