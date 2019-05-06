@@ -5,31 +5,29 @@ $(document).ready(function () {
 
     $("#homeBtn").click(function () {
         $('#outReports').hide();
-        $('#out').html('');
-        printCoins("https://api.coingecko.com/api/v3/coins/list");
+        $('#About').hide();
+
+        // $('#out').html('');
+     //   printCoins("https://api.coingecko.com/api/v3/coins/list");
+        $('#out').show();
+
     });
 
     $("#liveRepBtn").click(function () {
-        $('#out').html('');
+       // $('#out').html('');
+        $('#About').hide();
+        $('#out').hide();
         $('#outReports').show();
 
 
     });
     $("#aboutBtn").click(function () {
+        $('#out').hide();
         $('#outReports').hide();
-        $('#out').html('');
-        $('#out').append(
-            `<div class="col-md-4"></div>
+        $('#About').show();
 
-<div class="col-md-4"><h1>About</h1>
-<p></p>
+        //    $('#out').html('');
 
-
-</div>
-<div class="col-md-4"></div>
-
-`
-        )
 
     });
 
@@ -66,7 +64,7 @@ let checkCoinCount = (id) => {
             //  alert("too manny")
             countCoins -= 1;
 
-            window.$('#coinModal').modal('show');
+            $('#coinModal').modal('show');
             $('#modalCoinList').html('');
             $('#modalCoinList').append(
 `hhhh`
@@ -170,13 +168,16 @@ var conisToView = [];
 let updateChart = () => {
     let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + conisToView[0] + "," + conisToView[1] + "," + conisToView[2] + "," + conisToView[3] + "," + conisToView[4] + "&tsyms=USD"
 
-//alert(conisToView[0])
-
     $.ajax({
         url: conisUrl,
         type: "GET",
 
         success: function (response) {
+            console.log(response[conisToView[0]]);
+            console.log(response[conisToView[1]]);
+            console.log(response[conisToView[2]]);
+            console.log(response[conisToView[3]]);
+            console.log(response[conisToView[4]]);
 
 
             var dataPoints1 = [];
@@ -210,7 +211,7 @@ let updateChart = () => {
                 legend: {
                     cursor: "pointer",
                     verticalAlign: "top",
-                    fontSize: 22,
+                    fontSize: 18,
                     fontColor: "dimGrey",
                     itemclick: toggleDataSeries
                 },
@@ -219,7 +220,7 @@ let updateChart = () => {
                     xValueType: "dateTime",
                     yValueFormatString: "###.00Wh",
                     xValueFormatString: "hh:mm:ss TT",
-                    showInLegend: true,
+                    showInLegend:  (typeof response[conisToView[0]] === 'undefined') ? false : true,
                     name: coin1,
                     dataPoints: dataPoints1
                 },
@@ -227,28 +228,28 @@ let updateChart = () => {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00Wh",
-                        showInLegend: true,
+                        showInLegend: (typeof response[conisToView[1]] === 'undefined') ? false : true,
                         name: coin2,
                         dataPoints: dataPoints2
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00Wh",
-                        showInLegend: true,
+                        showInLegend: (typeof response[conisToView[2]] === 'undefined') ? false : true,
                         name: coin3,
                         dataPoints: dataPoints3
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00Wh",
-                        showInLegend: true,
+                        showInLegend: (typeof response[conisToView[3]] === 'undefined') ? false : true,
                         name: coin4,
                         dataPoints: dataPoints4
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00Wh",
-                        showInLegend: true,
+                        showInLegend: (typeof response[conisToView[4]] === 'undefined') ? false : true,
                         name: coin5,
                         dataPoints: dataPoints5
                     }]
@@ -321,12 +322,12 @@ let updateChart = () => {
                 // options.data[2].legendText = coin3 + "," + yValue3 + "$";
                 // options.data[3].legendText = coin4 + "," + yValue3 + "$";
                 // options.data[4].legendText = coin5 + "," + yValue3 + "$";
-                console.log(response[conisToView[0]].USD)
-                options.data[0].legendText = conisToView[0] + "to USD";
-                options.data[1].legendText = conisToView[1] + "to USD";
-                options.data[2].legendText = conisToView[2] + "to USD";
-                options.data[3].legendText = conisToView[3] + "to USD";
-                options.data[4].legendText = conisToView[4] + "to USD";
+             //   console.log(response[conisToView[0]].USD)
+                options.data[0].legendText = (typeof response[conisToView[0]] === 'undefined') ? "0" : conisToView[0]+" is" +" "+response[conisToView[0]].USD +" USD";
+                options.data[1].legendText = (typeof response[conisToView[1]] === 'undefined') ? "0" : conisToView[1]+" is" +" "+response[conisToView[1]].USD +" USD";
+                options.data[2].legendText = (typeof response[conisToView[2]] === 'undefined') ? "0" : conisToView[2]+" is" +" "+response[conisToView[2]].USD +" USD";
+                options.data[3].legendText = (typeof response[conisToView[3]] === 'undefined') ? "0" : conisToView[3]+" is" +" "+response[conisToView[3]].USD +" USD";
+                options.data[4].legendText = (typeof response[conisToView[4]] === 'undefined') ? "0" : conisToView[4]+" is" +" "+response[conisToView[4]].USD +" USD";
 
                 $("#chartContainer").CanvasJSChart().render();
             }

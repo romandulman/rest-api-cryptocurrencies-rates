@@ -87,7 +87,7 @@ h1 {
 .moreInfoP{
     margin-bottom: -15px;
 }
-#outReports{
+#outReports, #About{
     display: none;
 }
 
