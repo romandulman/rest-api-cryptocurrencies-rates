@@ -67,7 +67,16 @@ let checkCoinCount = (id) => {
             $('#coinModal').modal('show');
             $('#modalCoinList').html('');
             $('#modalCoinList').append(
-`hhhh`
+`
+
+<div>${conisToView[0]}</div> <label class="switch"><input type="checkbox" id="${conisToView[0]}" onchange="checkCoinCount(this.id)" /><div></div></label>
+<div>${conisToView[1]}</div> <label class="switch"><input type="checkbox" id="${conisToView[1]}" onchange="checkCoinCount(this.id)" /><div></div></label>
+<div>${conisToView[2]}</div> <label class="switch"><input type="checkbox" id="${conisToView[2]}" onchange="checkCoinCount(this.id)" /><div></div></label>
+<div>${conisToView[0]}</div> <label class="switch"><input type="checkbox" id="${conisToView[0]}" onchange="checkCoinCount(this.id)" /><div></div></label>
+<div>${conisToView[0]}</div> <label class="switch"><input type="checkbox" id="${conisToView[0]}" onchange="checkCoinCount(this.id)" /><div></div></label>
+
+
+`
             )
 
 
