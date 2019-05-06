@@ -177,16 +177,26 @@ let updateChart = () => {
             var dataPoints1 = [];
             var dataPoints2 = [];
             var dataPoints3 = [];
+            var dataPoints4 = [];
+            var dataPoints5 = [];
+             var mainText,coin1,coin2,coin3,coin4,coin5
+            var updateInterval = 2000;
+// initial value
+            var yValue1 = 0;
+            var yValue2 = 0;
+            var yValue3 = 0;
+            var yValue4 = 0;
+            var yValue5 = 0;
 
             var options = {
                 title: {
-                    text: "Electricity Generation in Turbine"
+                    text: mainText
                 },
                 axisX: {
                     title: "chart updates every 2 secs"
                 },
                 axisY: {
-                    suffix: "Wh",
+                    suffix: " $",
                     includeZero: false
                 },
                 toolTip: {
@@ -205,7 +215,7 @@ let updateChart = () => {
                     yValueFormatString: "###.00Wh",
                     xValueFormatString: "hh:mm:ss TT",
                     showInLegend: true,
-                    name: "Turbine 1",
+                    name: coin1,
                     dataPoints: dataPoints1
                 },
                     {
@@ -213,15 +223,29 @@ let updateChart = () => {
                         xValueType: "dateTime",
                         yValueFormatString: "###.00Wh",
                         showInLegend: true,
-                        name: "Turbine 2",
+                        name: coin2,
                         dataPoints: dataPoints2
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00Wh",
                         showInLegend: true,
-                        name: "Turbine 2",
+                        name: coin3,
                         dataPoints: dataPoints3
+                    },{
+                        type: "line",
+                        xValueType: "dateTime",
+                        yValueFormatString: "###.00Wh",
+                        showInLegend: true,
+                        name: coin4,
+                        dataPoints: dataPoints4
+                    }, {
+                        type: "line",
+                        xValueType: "dateTime",
+                        yValueFormatString: "###.00Wh",
+                        showInLegend: true,
+                        name: coin5,
+                        dataPoints: dataPoints5
                     }]
             };
 
@@ -237,11 +261,7 @@ let updateChart = () => {
                 e.chart.render();
             }
 
-            var updateInterval = 2000;
-// initial value
-            var yValue1 = 800;
-            var yValue2 = 810;
-            var yValue3 = 780;
+
 
             var time = new Date;
 // starting at 10.00 am
@@ -252,37 +272,58 @@ let updateChart = () => {
 
             function updateChart(count) {
                 count = count || 1;
-                var deltaY1, deltaY2, deltaY3;
+                var deltaY1, deltaY2, deltaY3,deltaY4,deltaY5 ;
                 for (var i = 0; i < count; i++) {
                     time.setTime(time.getTime() + updateInterval);
-                    deltaY1 = -1 + Math.random() * (1 + 1);
-                    deltaY2 = -1 + Math.random() * (1 + 1);
-                    deltaY3 = -1 + Math.random() * (1 + 1);
-
-                    // adding random value and rounding it to two digits.
-                    yValue1 = Math.round((yValue1 + deltaY1) * 100) / 100;
-                    yValue2 = Math.round((yValue2 + deltaY2) * 100) / 100;
-                    yValue3 = Math.round((yValue3 + deltaY3) * 100) / 100;
+                    // deltaY1 = -1 + Math.random() * (1 + 1);
+                    // deltaY2 = -1 + Math.random() * (1 + 1);
+                    // deltaY3 = -1 + Math.random() * (1 + 1);
+                    // deltaY4 = -1 + Math.random() * (1 + 1);
+                    // deltaY5 = -1 + Math.random() * (1 + 1);
+                    //
+                    // // adding random value and rounding it to two digits.
+                    // yValue1 = Math.round((yValue1 + deltaY1) * 100) / 100;
+                    // yValue2 = Math.round((yValue2 + deltaY2) * 100) / 100;
+                    // yValue3 = Math.round((yValue3 + deltaY3) * 100) / 100;
+                    // yValue4 = Math.round((yValue3 + deltaY3) * 100) / 100;
+                    // yValue5 = Math.round((yValue3 + deltaY3) * 100) / 100;
 
                     // pushing the new values
                     dataPoints1.push({
                         x: time.getTime(),
-                        y: yValue1
+                        y: response[conisToView[0]].USD == 'undefined' ? 0 : response[conisToView[0]].USD
                     });
                     dataPoints2.push({
                         x: time.getTime(),
-                        y: yValue2
+                        y: (response[conisToView[1]].USD == undefined) ? 0 : response[conisToView[1]].USD
                     });
                     dataPoints3.push({
                         x: time.getTime(),
-                        y: yValue3
+                        y: response[conisToView[2]].USD
+                    });
+                    dataPoints4.push({
+                        x: time.getTime(),
+                        y: response[conisToView[3]].USD
+                    });
+                    dataPoints5.push({
+                        x: time.getTime(),
+                        y: response[conisToView[4]].USD
                     });
                 }
 
                 // updating legend text with  updated with y Value
-                options.data[0].legendText = "Turbine 1 : " + yValue1 + "Wh";
-                options.data[1].legendText = "Turbine 2 : " + yValue2 + "Wh";
-                options.data[2].legendText = "Turbine 3 : " + yValue3 + "Wh";
+                // options.data[0].legendText = coin1 + "," + yValue1 + "$";
+                // options.data[1].legendText = coin2 + "," + yValue2 + "$";
+                // options.data[2].legendText = coin3 + "," + yValue3 + "$";
+                // options.data[3].legendText = coin4 + "," + yValue3 + "$";
+                // options.data[4].legendText = coin5 + "," + yValue3 + "$";
+console.log(response[conisToView[0]].USD)
+                options.data[0].legendText = conisToView[0] + "to USD";
+                options.data[1].legendText = coin2 + "to USD";
+                options.data[2].legendText = coin3 + "to USD";
+                options.data[3].legendText = coin4 + "to USD";
+                options.data[4].legendText = coin5 + "to USD";
+
                 $("#chartContainer").CanvasJSChart().render();
             }
 
