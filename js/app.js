@@ -1,4 +1,4 @@
-let flag = 0, i = 0, countCoins = 0, conisToView = [];
+let flag = 0, i = 0, countCoins = [],pos=0, conisToView = [];
 
 $(document).ready(function () {
     localStorage.clear();
@@ -34,32 +34,42 @@ let checkCoinCount = (id) => {
 
     let idUpperCase = id.toString().toUpperCase();
     if ($("#" + id).is(':checked')) {
-        countCoins += 1;
+     //  countCoins[pos]
+       //pos ++;
         conisToView.push(idUpperCase);
         console.log(conisToView);
-        if (countCoins > 5) {
+        for ( pos = 0; pos < conisToView.length; pos++){
+
+        }
+        if (conisToView.length > 5) {
             $("#" + id).prop("checked", false);
-            countCoins -= 1;
+         //   countCoins -= 1;
             $('#coinModal').modal('show');
             $('#modalCoinList').html('');
 
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < conisToView.length; i++) {
                 $('#modalCoinList').append(
-                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" /><div></div></label>`
+                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="removeCoin(this.id)"/><div></div></label>`
                 )
             }
         }
-        updateChart();
     }
     else if ($("#" + id).is(':checked') == false) {
-        countCoins -= 1
-        alert(conisToView[countCoins] +" removed")
-        conisToView.splice(countCoins, 1);
+        //countCoins -= 1
+     //   alert(conisToView[countCoins] +" removed")
+        const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
+        alert(index);
+        conisToView.splice(index, 1);
+       // alert(conisToView[id])
         console.log(conisToView)
 
     }
-};
+    updateChart();
 
+};
+let removeCoin = (id) =>{
+
+}
 let printCoins = (url) => {
     $.ajax({
         url: url,
@@ -79,7 +89,7 @@ let printCoins = (url) => {
                          <div class="row no-gutters">
                         <div class="col">
                           <div class="card-block px-2">
-                             <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox" id="${element.symbol}" onchange="checkCoinCount(this.id)" /> 
+                             <h4 class="card-title" id="symOut">${element.symbol}</h4><label class="switch"><input type="checkbox"  id="${element.symbol}" onchange="checkCoinCount(this.id)" /> 
                                 <div>
                                   </div>
                                    </label>
@@ -122,7 +132,6 @@ let printCoins = (url) => {
 
 
 let updateChart = () => {
-    alert()
     let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + conisToView[0] + "," + conisToView[1] + "," + conisToView[2] + "," + conisToView[3] + "," + conisToView[4] + "&tsyms=USD"
     $.ajax({
         url: conisUrl,
@@ -166,7 +175,7 @@ let updateChart = () => {
                 data: [{
                     type: "line",
                     xValueType: "dateTime",
-                    yValueFormatString: "###.00Wh",
+                    yValueFormatString: "###.00$",
                     xValueFormatString: "hh:mm:ss TT",
                     showInLegend:  (typeof response[conisToView[0]] === 'undefined') ? false : true,
                     name: coin1,
@@ -175,28 +184,28 @@ let updateChart = () => {
                     {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00Wh",
+                        yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[1]] === 'undefined') ? false : true,
                         name: coin2,
                         dataPoints: dataPoints2
                     }, {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00Wh",
+                        yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[2]] === 'undefined') ? false : true,
                         name: coin3,
                         dataPoints: dataPoints3
                     }, {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00Wh",
+                        yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[3]] === 'undefined') ? false : true,
                         name: coin4,
                         dataPoints: dataPoints4
                     }, {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00Wh",
+                        yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[4]] === 'undefined') ? false : true,
                         name: coin5,
                         dataPoints: dataPoints5
