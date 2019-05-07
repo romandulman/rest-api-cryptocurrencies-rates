@@ -43,7 +43,6 @@ let checkCoinCount = (id) => {
         }
         if (conisToView.length > 5) {
             $("#" + id).prop("checked", false);
-         //   countCoins -= 1;
             $('#coinModal').modal('show');
             $('#modalCoinList').html('');
 
@@ -55,12 +54,8 @@ let checkCoinCount = (id) => {
         }
     }
     else if ($("#" + id).is(':checked') == false) {
-        //countCoins -= 1
-     //   alert(conisToView[countCoins] +" removed")
         const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
-        alert(index);
         conisToView.splice(index, 1);
-       // alert(conisToView[id])
         console.log(conisToView)
 
     }
@@ -68,7 +63,11 @@ let checkCoinCount = (id) => {
 
 };
 let removeCoin = (id) =>{
+    let idUpperCase = id.toString().toUpperCase();
 
+    const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
+    conisToView.splice(index, 1);
+    console.log(conisToView)
 }
 let printCoins = (url) => {
     $.ajax({
