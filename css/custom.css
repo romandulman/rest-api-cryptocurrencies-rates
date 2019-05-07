@@ -87,8 +87,14 @@ h1 {
 .moreInfoP{
     margin-bottom: -15px;
 }
-#outReports, #About{
+#outReports{
     display: none;
+}
+#About {
+    display: none;
+max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 

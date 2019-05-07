@@ -1,4 +1,4 @@
-let flag = 0, i = 0, countCoins = [],pos=0, conisToView = [];
+let flag = 0, i = 0, pos = 0, conisToView = [], idOut;
 
 $(document).ready(function () {
     localStorage.clear();
@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     $("#liveRepBtn").click(function () {
-       // $('#out').html('');
+        // $('#out').html('');
         $('#About').hide();
         $('#out').hide();
         $('#outReports').show();
@@ -34,11 +34,11 @@ let checkCoinCount = (id) => {
 
     let idUpperCase = id.toString().toUpperCase();
     if ($("#" + id).is(':checked')) {
-     //  countCoins[pos]
-       //pos ++;
+        //  countCoins[pos]
+        //pos ++;
         conisToView.push(idUpperCase);
         console.log(conisToView);
-        for ( pos = 0; pos < conisToView.length; pos++){
+        for (pos = 0; pos < conisToView.length; pos++) {
 
         }
         if (conisToView.length > 5) {
@@ -48,7 +48,7 @@ let checkCoinCount = (id) => {
 
             for (let i = 0; i < conisToView.length; i++) {
                 $('#modalCoinList').append(
-                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="WremCoin(this.id)"/><div></div></label>`
+                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="SetremCoin(this.id)"/><div></div></label>`
                 )
                 $("#" + conisToView[i]).prop("checked", true);
 
@@ -64,16 +64,20 @@ let checkCoinCount = (id) => {
 
 };
 let coinToRemove;
-let WremCoin = (id) =>{
+let SetremCoin = (id) => {
     coinToRemove = id;
 }
-let removeCoin = () =>{
-    let idUpperCase = coinToRemove.toString().toUpperCase();
-    const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
+let removeCoin = () => {
+    const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
     conisToView.splice(index, 1);
     console.log(conisToView);
-    $("#" + coinToRemove).prop("checked", false);
-alert(coinToRemove);
+    alert(coinToRemove);
+    let idLowerCase = coinToRemove.toString().toLowerCase();
+
+    $("#" + idLowerCase).prop("checked", false);
+    alert(idLowerCase);
+    $('#coinModal').modal('hide');
+    updateChart();
 
 };
 
@@ -91,7 +95,7 @@ let printCoins = (url) => {
 
                     $('#out').append(
                         `  
-                    <div class=" col-lg-3 col-md-6 ">
+                    <div class="col-lg-3 col-md-6">
                       <div class="card shadow p-3 mb-5 cardCss">
                          <div class="row no-gutters">
                         <div class="col">
@@ -105,13 +109,12 @@ let printCoins = (url) => {
                               <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
                       </div>
                     </div> `
-
                     );
                 });
-            }else{
+            } else {
                 $('#out').append(
-`<div class=" col-lg-3 col-md-6 SingleColCss ">
-        <div class="card shadow p-3 mb-5 ">
+                    `<div class="col-lg-3 col-md-6 SingleColCss">
+        <div class="card shadow p-3 mb-5">
             <div class="row no-gutters">
                 <div class="col">
                     <div class="card-block px-2">
@@ -170,7 +173,7 @@ let updateChart = () => {
                     includeZero: false
                 },
                 toolTip: {
-                    shared: true
+                    shared: false
                 },
                 legend: {
                     cursor: "pointer",
@@ -184,7 +187,7 @@ let updateChart = () => {
                     xValueType: "dateTime",
                     yValueFormatString: "###.00$",
                     xValueFormatString: "hh:mm:ss TT",
-                    showInLegend:  (typeof response[conisToView[0]] === 'undefined') ? false : true,
+                    showInLegend: (typeof response[conisToView[0]] === 'undefined') ? false : true,
                     name: coin1,
                     dataPoints: dataPoints1
                 },
@@ -262,11 +265,11 @@ let updateChart = () => {
                         y: (typeof response[conisToView[4]] === 'undefined') ? 0 : response[conisToView[4]].USD
                     });
                 }
-                options.data[0].legendText = (typeof response[conisToView[0]] === 'undefined') ? "0" : conisToView[0]+" is" +" "+response[conisToView[0]].USD +" USD";
-                options.data[1].legendText = (typeof response[conisToView[1]] === 'undefined') ? "0" : conisToView[1]+" is" +" "+response[conisToView[1]].USD +" USD";
-                options.data[2].legendText = (typeof response[conisToView[2]] === 'undefined') ? "0" : conisToView[2]+" is" +" "+response[conisToView[2]].USD +" USD";
-                options.data[3].legendText = (typeof response[conisToView[3]] === 'undefined') ? "0" : conisToView[3]+" is" +" "+response[conisToView[3]].USD +" USD";
-                options.data[4].legendText = (typeof response[conisToView[4]] === 'undefined') ? "0" : conisToView[4]+" is" +" "+response[conisToView[4]].USD +" USD";
+                options.data[0].legendText = (typeof response[conisToView[0]] === 'undefined') ? "0" : conisToView[0] + " is" + " " + response[conisToView[0]].USD + " USD";
+                options.data[1].legendText = (typeof response[conisToView[1]] === 'undefined') ? "0" : conisToView[1] + " is" + " " + response[conisToView[1]].USD + " USD";
+                options.data[2].legendText = (typeof response[conisToView[2]] === 'undefined') ? "0" : conisToView[2] + " is" + " " + response[conisToView[2]].USD + " USD";
+                options.data[3].legendText = (typeof response[conisToView[3]] === 'undefined') ? "0" : conisToView[3] + " is" + " " + response[conisToView[3]].USD + " USD";
+                options.data[4].legendText = (typeof response[conisToView[4]] === 'undefined') ? "0" : conisToView[4] + " is" + " " + response[conisToView[4]].USD + " USD";
 
                 $("#chartContainer").CanvasJSChart().render();
             }
