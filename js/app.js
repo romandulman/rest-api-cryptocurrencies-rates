@@ -48,8 +48,10 @@ let checkCoinCount = (id) => {
 
             for (let i = 0; i < conisToView.length; i++) {
                 $('#modalCoinList').append(
-                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="removeCoin(this.id)"/><div></div></label>`
+                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="WremCoin(this.id)"/><div></div></label>`
                 )
+                $("#" + conisToView[i]).prop("checked", true);
+
             }
         }
     }
@@ -57,18 +59,24 @@ let checkCoinCount = (id) => {
         const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
         conisToView.splice(index, 1);
         console.log(conisToView)
-
     }
     updateChart();
 
 };
-let removeCoin = (id) =>{
-    let idUpperCase = id.toString().toUpperCase();
-
+let coinToRemove;
+let WremCoin = (id) =>{
+    coinToRemove = id;
+}
+let removeCoin = () =>{
+    let idUpperCase = coinToRemove.toString().toUpperCase();
     const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
     conisToView.splice(index, 1);
-    console.log(conisToView)
-}
+    console.log(conisToView);
+    $("#" + coinToRemove).prop("checked", false);
+alert(coinToRemove);
+
+};
+
 let printCoins = (url) => {
     $.ajax({
         url: url,
