@@ -1,4 +1,4 @@
-let flag = 0, i = 0;
+let flag = 0, i = 0, countCoins = 0, conisToView = [];
 
 $(document).ready(function () {
     localStorage.clear();
@@ -45,20 +45,19 @@ let checkCoinCount = (id) => {
 
             for (let i = 0; i < 5; i++) {
                 $('#modalCoinList').append(
-                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}"  /><div></div></label>`
+                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" /><div></div></label>`
                 )
             }
         }
-
+        updateChart();
     }
     else if ($("#" + id).is(':checked') == false) {
         countCoins -= 1
-       // alert(conisToView[countCoins] +" removed")
+        alert(conisToView[countCoins] +" removed")
         conisToView.splice(countCoins, 1);
         console.log(conisToView)
 
     }
-    updateChart();
 };
 
 let printCoins = (url) => {
@@ -121,9 +120,9 @@ let printCoins = (url) => {
     });
 };
 
-let countCoins = 0;
-var conisToView = [];
+
 let updateChart = () => {
+    alert()
     let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + conisToView[0] + "," + conisToView[1] + "," + conisToView[2] + "," + conisToView[3] + "," + conisToView[4] + "&tsyms=USD"
     $.ajax({
         url: conisUrl,
@@ -223,13 +222,12 @@ let updateChart = () => {
 
             function updateChart(count) {
                 count = count || 1;
-                var deltaY1, deltaY2, deltaY3, deltaY4, deltaY5;
                 for (var i = 0; i < count; i++) {
                     time.setTime(time.getTime() + updateInterval);
 
                     dataPoints1.push({
                         x: time.getTime(),
-                        y: response[conisToView[0]].USD == 'undefined' ? 0 : response[conisToView[0]].USD
+                        y: (typeof response[conisToView[0]] === 'undefined') ? 0 : response[conisToView[0]].USD
                     });
                     dataPoints2.push({
                         x: time.getTime(),
