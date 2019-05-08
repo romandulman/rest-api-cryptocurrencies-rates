@@ -21,18 +21,18 @@
         <div class="collapse navbar-collapse" id="navb">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <button type="button" class="btn btn-light" id="homeBtn">Home</button>
+                    <button type="button" class="btn NavBtn " id="homeBtn">Home</button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="btn btn-light" id="liveRepBtn">Live Reports</button>
+                    <button type="button" class="btn NavBtn" id="liveRepBtn">Live Reports</button>
                 </li>
                 <li class="nav-item ">
-                    <button type="button" class="btn btn-light" id="aboutBtn">About</button>
+                    <button type="button" class="btn NavBtn" id="aboutBtn">About</button>
                 </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" id="srchFld">
-                <button class="btn btn-success my-2 my-sm-0" type="button" id="srchBtn">Search</button>
+                <button class="btn btn-success my-2 my-sm-0" type="button" id="srchBtn" data-toggle="tooltip" data-placement="bottom" title="Search Coin"><i class="fas fa-search"></i></button>
             </div>
         </div>
     </nav>
@@ -53,17 +53,22 @@
 
 
         <div id="About">
+
             <div class="card shadow p-3 mb-5 ">
                 <div class="row no-gutters">
                     <div class="col">
                         <h1>About Me</h1>
                         <img src="https://avatars2.githubusercontent.com/u/47609139?s=460&v=4" height="170">
                         <p><h6>Hi my name is <b>Roman Dulman</b> and i am Full-Stack Developer</h6></p>
+                        <hr>
+                        <h6>This project demonstrates impelmantion of  REST api, Canvas.JS for live graph report and Bootstrap. With help of REST Api we push Crypto-Currencies rates data in live </h6>
 
                     </div>
                 </div>
 
             </div>
+
+
         </div>
 
     </div>
@@ -82,8 +87,8 @@
                     <div id="modalCoinList"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="removeCoin()" >Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="RemoveCoinBtn"  >Save changes</button>
+                    <button type="button" class="btn btn-secondary" id="CancelModalBtn" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>

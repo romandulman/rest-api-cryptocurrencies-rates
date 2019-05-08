@@ -7,11 +7,13 @@ h1 {
     margin: 5px;
 
 }
+
 .SingleColCss {
     margin-right: auto;
     margin-left: auto;
     max-width: 250px;
 }
+
 .coinCont {
     margin-top: 100px;
     text-align: center;
@@ -33,7 +35,8 @@ h1 {
     background-color: white;
 
 }
-.spinnerCont{
+
+.spinnerCont {
     margin-right: auto;
     margin-left: auto;
 }
@@ -78,23 +81,36 @@ h1 {
 
 }
 
-.errMsg{
+.errMsg {
     font-size: 14pt;
     color: red;
     text-align: right;
     margin: 25px;
 }
-.moreInfoP{
+
+.moreInfoP {
     margin-bottom: -15px;
 }
-#outReports{
+
+#outReports {
     display: none;
 }
+
 #About {
     display: none;
-max-width: 300px;
+    max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.NavBtn {
+    margin: 5px;
+    font-weight: 500;
+}
+
+.NavBtn:hover {
+    background-color: green;
+    color: white;
 }
 
 

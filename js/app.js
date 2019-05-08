@@ -1,92 +1,87 @@
-let flag = 0, i = 0, pos = 0, conisToView = [], idOut;
+let flag = 0, i = 0, conisToView = [], idOut,coinToRemove;
 
 $(document).ready(function () {
     localStorage.clear();
-
-    $("#homeBtn").click(function () {
-        $('#outReports').hide();
-        $('#About').hide();
-        $('#out').show();
-    });
-
-    $("#liveRepBtn").click(function () {
-        // $('#out').html('');
-        $('#About').hide();
-        $('#out').hide();
-        $('#outReports').show();
-    });
-
-    $("#aboutBtn").click(function () {
-        $('#out').hide();
-        $('#outReports').hide();
-        $('#About').show();
-    });
-
-    $("#srchBtn").click(function () {
-        $("#out").html('');
-        url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
-        printCoins(url)
-    });
     printCoins("https://api.coingecko.com/api/v3/coins/list");
-
 });
-let checkCoinCount = (id) => {
 
+$("#homeBtn").click(function () {
+    $('#outReports').hide();
+    $('#About').hide();
+    $('#out').show();
+});
+
+$("#liveRepBtn").click(function () {
+    // $('#out').html('');
+    $('#About').hide();
+    $('#out').hide();
+    $('#outReports').show();
+});
+
+$("#aboutBtn").click(function () {
+    $('#out').hide();
+    $('#outReports').hide();
+    $('#About').show();
+});
+
+$("#srchBtn").click(function () {
+    $("#out").html('');
+    url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
+    printCoins(url)
+});
+
+
+let checkCoinCount = (id) => {
+    idOut = id;
     let idUpperCase = id.toString().toUpperCase();
     if ($("#" + id).is(':checked')) {
-        //  countCoins[pos]
-        pos += 1;
-        if (conisToView.length < 5) {
-            conisToView.push(idUpperCase);
-            console.log(conisToView);
-           // alert(conisToView.length)
-        }
-       if (pos > 5) {
-          //  $("#" + id).prop("checked", false);
-            $("#" + id).attr('checked', false)
+        conisToView.push(idUpperCase);
+
+        console.log(conisToView);
+
+        if (conisToView.length > 5) {
             $('#coinModal').modal('show');
             $('#modalCoinList').html('');
-
             for (let i = 0; i < 5; i++) {
                 $('#modalCoinList').append(
                     `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="SetremCoin(this.id)"/><div></div></label>`
-              )
-               // if (conisToView[i] == NaN){
-               //     $("#" + conisToView[i]).prop("checked", true)
-               //     alert('nan')
-               // }else {
-               //      $("#" + (conisToView[i]).toString().toLowerCase()).prop("checked", true);
-               //  }
+                )
 
-
-               if (isNaN(conisToView[i])){
-                   $("#" + conisToView[i]).prop("checked", true)
-               }else{
-                   let idLowerCase = conisToView[i].toString().toLowerCase();
-                   $("#" + idLowerCase).prop("checked", true)
-               }
-              //
+                if (isNaN(conisToView[i])) {
+                    $("#" + conisToView[i]).prop("checked", true)
+                } else {
+                    let idLowerCase = conisToView[i].toString().toLowerCase();
+                    $("#" + idLowerCase).prop("checked", true)
+                }
 
             }
-
+            console.log(conisToView);
         }
     }
     else if ($("#" + id).is(':checked') == false) {
         const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
         conisToView.splice(index, 1);
         console.log(conisToView)
-        pos -= 1
     }
     updateChart();
 
 };
-let coinToRemove;
+
 let SetremCoin = (id) => {
     coinToRemove = id;
 }
-let removeCoin = () => {
-    pos -= 1
 
+$("#CancelModalBtn").click(function () {
+    $("#" + idOut).attr('checked', false)
+    conisToView.splice(-1, 1)
+    console.log(conisToView);
+
+});
+$("#RemoveCoinBtn").click(function () {
+    removeCoin()
+});
+
+let removeCoin = () => {
     const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
     conisToView.splice(index, 1);
     console.log(conisToView);
@@ -207,7 +202,6 @@ let updateChart = () => {
                     yValueFormatString: "###.00$",
                     xValueFormatString: "hh:mm:ss TT",
                     showInLegend: (typeof response[conisToView[0]] === 'undefined') ? false : true,
-                    name: (typeof response[conisToView[0]] === 'undefined') ? false : true,
                     dataPoints: dataPoints1
                 },
                     {
@@ -215,28 +209,24 @@ let updateChart = () => {
                         xValueType: "dateTime",
                         yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[1]] === 'undefined') ? false : true,
-                        name: (typeof response[conisToView[1]] === 'undefined') ? false : true,
                         dataPoints: dataPoints2
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[2]] === 'undefined') ? false : true,
-                        name: (typeof response[conisToView[2]] === 'undefined') ? false : true,
                         dataPoints: dataPoints3
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[3]] === 'undefined') ? false : true,
-                        name: coin4,
                         dataPoints: dataPoints4
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[4]] === 'undefined') ? false : true,
-                        name: coin5,
                         dataPoints: dataPoints5
                     }]
             };
