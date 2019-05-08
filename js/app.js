@@ -35,30 +35,47 @@ let checkCoinCount = (id) => {
     let idUpperCase = id.toString().toUpperCase();
     if ($("#" + id).is(':checked')) {
         //  countCoins[pos]
-        //pos ++;
-        conisToView.push(idUpperCase);
-        console.log(conisToView);
-        for (pos = 0; pos < conisToView.length; pos++) {
-
+        pos += 1;
+        if (conisToView.length < 5) {
+            conisToView.push(idUpperCase);
+            console.log(conisToView);
+           // alert(conisToView.length)
         }
-        if (conisToView.length > 5) {
-            $("#" + id).prop("checked", false);
+       if (pos > 5) {
+          //  $("#" + id).prop("checked", false);
+            $("#" + id).attr('checked', false)
             $('#coinModal').modal('show');
             $('#modalCoinList').html('');
 
-            for (let i = 0; i < conisToView.length; i++) {
+            for (let i = 0; i < 5; i++) {
                 $('#modalCoinList').append(
                     `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="SetremCoin(this.id)"/><div></div></label>`
-                )
-                $("#" + conisToView[i]).prop("checked", true);
+              )
+               // if (conisToView[i] == NaN){
+               //     $("#" + conisToView[i]).prop("checked", true)
+               //     alert('nan')
+               // }else {
+               //      $("#" + (conisToView[i]).toString().toLowerCase()).prop("checked", true);
+               //  }
+
+
+               if (isNaN(conisToView[i])){
+                   $("#" + conisToView[i]).prop("checked", true)
+               }else{
+                   let idLowerCase = conisToView[i].toString().toLowerCase();
+                   $("#" + idLowerCase).prop("checked", true)
+               }
+              //
 
             }
+
         }
     }
     else if ($("#" + id).is(':checked') == false) {
         const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
         conisToView.splice(index, 1);
         console.log(conisToView)
+        pos -= 1
     }
     updateChart();
 
@@ -68,6 +85,8 @@ let SetremCoin = (id) => {
     coinToRemove = id;
 }
 let removeCoin = () => {
+    pos -= 1
+
     const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
     conisToView.splice(index, 1);
     console.log(conisToView);
@@ -188,7 +207,7 @@ let updateChart = () => {
                     yValueFormatString: "###.00$",
                     xValueFormatString: "hh:mm:ss TT",
                     showInLegend: (typeof response[conisToView[0]] === 'undefined') ? false : true,
-                    name: coin1,
+                    name: (typeof response[conisToView[0]] === 'undefined') ? false : true,
                     dataPoints: dataPoints1
                 },
                     {
@@ -196,14 +215,14 @@ let updateChart = () => {
                         xValueType: "dateTime",
                         yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[1]] === 'undefined') ? false : true,
-                        name: coin2,
+                        name: (typeof response[conisToView[1]] === 'undefined') ? false : true,
                         dataPoints: dataPoints2
                     }, {
                         type: "line",
                         xValueType: "dateTime",
                         yValueFormatString: "###.00$",
                         showInLegend: (typeof response[conisToView[2]] === 'undefined') ? false : true,
-                        name: coin3,
+                        name: (typeof response[conisToView[2]] === 'undefined') ? false : true,
                         dataPoints: dataPoints3
                     }, {
                         type: "line",
