@@ -1,13 +1,10 @@
-let flag = 0, i = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
+let flag = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
 
 $(document).ready(function () {
-    //??  localStorage.clear();
-
+    localStorage.clear();
     getCoinData()
-    // printCoins("https://api.coingecko.com/api/v3/coins/list");
+
 });
-$("#out").onbeforeunload = function () {             $("#spinnerSend").show();
-}
 
 $("#homeBtn").click(function () {
     $('#outReports').hide();
@@ -30,18 +27,14 @@ $("#aboutBtn").click(function () {
 
 $("#srchBtn").click(function () {
     $("#out").html('');
-    // url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
-    //  printCoins(url)
     searchCoin($("#srchFld").val())
 });
-
 
 let checkCoinCount = (id) => {
     idOut = id;
     let idUpperCase = id.toString().toUpperCase();
     if ($("#" + id).is(':checked')) {
         conisToView.push(idUpperCase);
-        //  console.log(conisToView);
         if (conisToView.length > 5) {
             $('#coinModal').modal('show');
             $('#modalCoinList').html('');
@@ -49,16 +42,13 @@ let checkCoinCount = (id) => {
                 $('#modalCoinList').append(
                     `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label>`
                 );
-
                 $("#C" + conisToView[i]).prop("checked", true);
             }
-            console.log(conisToView);
         }
     }
     else if ($("#" + id).is(':checked') == false) {
         const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
         conisToView.splice(index, 1);
-        console.log(conisToView)
     }
     updateChart();
 };
@@ -71,7 +61,6 @@ let SetRemCoin = (id) => {
 $("#CancelModalBtn").click(function () {
     $("#" + idOut).attr('checked', false)
     conisToView.splice(-1, 1)
-    console.log(conisToView);
 });
 
 $("#RemoveCoinBtn").click(function () {
@@ -81,7 +70,7 @@ $("#RemoveCoinBtn").click(function () {
 let removeCoin = () => {
     const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
     conisToView.splice(index, 1);
-    console.log(conisToView);
+  //  console.log(conisToView);
     let idLowerCase = coinToRemove.toString().toLowerCase();
     $("#" + idLowerCase).prop("checked", false);
     $('#coinModal').modal('hide');
@@ -105,11 +94,10 @@ const getCoinData = () => {
 
 const searchCoin = (searchTerm) => {
     if (searchTerm.length == 0) {
-
         printCoins()
     } else {
-        (searchTerm === searchTerm.toUpperCase()) ? searchTerm = searchTerm.toLowerCase() : searchTerm = searchTerm;
-        const result = AllCoins.find(fruit => fruit.symbol === searchTerm);
+        (searchTerm === searchTerm.toUpperCase()) ? searchTerm = searchTerm.toLowerCase() : searchTerm ;
+        const result = AllCoins.find(Coin => Coin.symbol === searchTerm);
         if (typeof result === 'undefined') {
             $('#out').append(
                 `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
@@ -128,12 +116,13 @@ const searchCoin = (searchTerm) => {
              </div>
         </div> `
             )
+
         }
     }
 }
 
 const printCoins = () => {
-    AllCoins.forEach(function (element) {
+        AllCoins.forEach(function (element) {
         $('#out').append(
             `  
                     <div class="col-lg-3 col-md-6">
@@ -151,6 +140,10 @@ const printCoins = () => {
                       </div>
                     </div> `
         );
+
+    });
+    $( "#out" ).ready(function() {
+        $( "#spinnerSend" ).hide()
     });
 };
 
@@ -161,11 +154,6 @@ const updateChart = () => {
         url: conisUrl,
         type: "GET",
         success: function (response) {
-            // console.log(response[conisToView[0]]);
-            // console.log(response[conisToView[1]]);
-            // console.log(response[conisToView[2]]);
-            // console.log(response[conisToView[3]]);
-            // console.log(response[conisToView[4]]);
 
             var dataPoints1 = [];
             var dataPoints2 = [];
@@ -249,7 +237,7 @@ const updateChart = () => {
 
             function updateChart(count) {
                 count = count || 1;
-                for (var i = 0; i < count; i++) {
+                for (let i = 0; i < count; i++) {
                     time.setTime(time.getTime() + updateInterval);
 
                     dataPoints1.push({
@@ -273,8 +261,8 @@ const updateChart = () => {
                         y: (typeof response[conisToView[4]] === 'undefined') ? 0 : response[conisToView[4]].USD
                     });
                 }
-                for (let i = 0; i < 5; i++) {
-                    options.data[i].legendText = (typeof response[conisToView[i]] === 'undefined') ? "0" : conisToView[i] + " is" + " " + response[conisToView[i]].USD + " USD";
+                for (let x = 0; x < 5; x++) {
+                    options.data[x].legendText = (typeof response[conisToView[x]] === 'undefined') ? "0" : conisToView[x] + " is" + " " + response[conisToView[x]].USD + " USD";
 
                 }
 
