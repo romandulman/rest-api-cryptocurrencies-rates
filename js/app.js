@@ -28,6 +28,15 @@ $("#srchBtn").click(function () {
     searchCoin($("#srchFld").val())
 });
 
+$("#CancelModalBtn").click(function () {
+    $("#" + idOut).attr('checked', false);
+    conisToView.splice(-1, 1);
+});
+
+$("#RemoveCoinBtn").click(function () {
+    removeCoin();
+});
+
 let checkCoinCount = (id) => {
     idOut = id;
     let idUpperCase = id.toString().toUpperCase();
@@ -38,7 +47,7 @@ let checkCoinCount = (id) => {
             $('#modalCoinList').html('');
             for (let i = 0; i < 5; i++) {
                 $('#modalCoinList').append(
-                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label>`
+                    `<div class="row"><div class="col"> <span class="CoinTextMod">${conisToView[i]}</span> <label class="switch SwModal"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label> </div></div>`
                 );
                 $("#C" + conisToView[i]).prop("checked", true);
             }
@@ -55,15 +64,6 @@ let SetRemCoin = (id) => {
     id = id.substring(1);
     coinToRemove = id;
 }
-
-$("#CancelModalBtn").click(function () {
-    $("#" + idOut).attr('checked', false);
-    conisToView.splice(-1, 1);
-});
-
-$("#RemoveCoinBtn").click(function () {
-    removeCoin();
-});
 
 const removeCoin = () => {
     const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
@@ -88,6 +88,7 @@ const getCoinData = () => {
         }
     });
 };
+
 let searchCoin = (searchTerm) => {
     if (searchTerm.length == 0) {
         printCoins();
@@ -111,11 +112,21 @@ let searchCoin = (searchTerm) => {
                                                  <button class="btn btn-info moreBtn" id="${result.id}" onclick="collapseFunc(this.id)" >More Info</button>
               </div>
         </div> `
-            )
+            );
+            if (conisToView.length > 0) {
+                for (let k = 0; k < conisToView.length; k++) {
+
+                    const result = AllCoins.find(Coin => Coin.symbol === conisToView[k].toLowerCase());
+                    $("#" + result.symbol).prop("checked", true);
+
+                    console.log(result)
+
+                }
+            }
 
         }
     }
-}
+};
 
 const printCoins = () => {
     AllCoins.forEach(function (element) {
@@ -135,10 +146,17 @@ const printCoins = () => {
                               <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
                       </div>
                     </div> `
-        );
-    });
-    $("#out").ready(function () {
-        $("#spinnerSend").hide()
+        )
+        if (conisToView.length > 0) {
+            for (let k = 0; k < conisToView.length; k++) {
+
+                const result = AllCoins.find(Coin => Coin.symbol === conisToView[k].toLowerCase());
+                $("#" + result.symbol).prop("checked", true);
+
+                console.log(result)
+
+            }
+        }
     });
 };
 
@@ -181,7 +199,7 @@ const updateChart = () => {
                 data: [{
                     type: "line",
                     xValueType: "dateTime",
-                    yValueFormatString: "###.00$",
+                    yValueFormatString: "###.#00$",
                     xValueFormatString: "hh:mm:ss TT",
                     showInLegend: (typeof response[conisToView[0]] === 'undefined') ? false : true,
                     dataPoints: dataPoints1
@@ -189,25 +207,25 @@ const updateChart = () => {
                     {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00$",
+                        yValueFormatString: "###.#00$",
                         showInLegend: (typeof response[conisToView[1]] === 'undefined') ? false : true,
                         dataPoints: dataPoints2
                     }, {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00$",
+                        yValueFormatString: "###.#00$",
                         showInLegend: (typeof response[conisToView[2]] === 'undefined') ? false : true,
                         dataPoints: dataPoints3
                     }, {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00$",
+                        yValueFormatString: "###.#00$",
                         showInLegend: (typeof response[conisToView[3]] === 'undefined') ? false : true,
                         dataPoints: dataPoints4
                     }, {
                         type: "line",
                         xValueType: "dateTime",
-                        yValueFormatString: "###.00$",
+                        yValueFormatString: "###.#00$",
                         showInLegend: (typeof response[conisToView[4]] === 'undefined') ? false : true,
                         dataPoints: dataPoints5
                     }]
@@ -323,7 +341,7 @@ printMoreInfo = (coinId, img, usd, eur, ils) => {
                   <img src="${img}"/>
                   <br>
                  <p><b>Conversion Rates </b></p>
-                  <p>${usd} <b>USD</b></p>
+                 <p>${usd} <b>USD</b></p>
                  <p>${eur} <b>EUR</b></p> 
                  <p>${ils} <b>ILS</b></p>`
     )
