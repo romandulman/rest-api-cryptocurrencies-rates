@@ -113,20 +113,17 @@ const getCoinData = () =>{
     });
 };
 
-const searchCoin =(searchTerm)=>{
-    const result = AllCoins.find( fruit => fruit.symbol === searchTerm );
+const searchCoin = (searchTerm) => {
+    (searchTerm === searchTerm.toUpperCase()) ? searchTerm = searchTerm.toLowerCase() : searchTerm = searchTerm;
+    const result = AllCoins.find(fruit => fruit.symbol === searchTerm);
 
- //   alert(JSON.stringify(result))
-  //  alert(result.id)
-   if (typeof result === 'undefined'){
-       $('#out').append(
-           `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
-       )
-   }else{
-
-
-       $('#out').append(
-                    `<div class="col-lg-3 col-md-6 SingleColCss">
+    if (typeof result === 'undefined') {
+        $('#out').append(
+            `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
+        )
+    } else {
+        $('#out').append(
+            `<div class="col-lg-3 col-md-6 SingleColCss">
         <div class="card shadow p-3 mb-5">
             <div class="row no-gutters">
                 <div class="col">
@@ -137,11 +134,8 @@ const searchCoin =(searchTerm)=>{
                                                  <button class="btn btn-info moreBtn" id="${result.id}" onclick="collapseFunc(this.id)" >More Info</button>
              </div>
         </div> `
-              )
-   }
-
-
-
+        )
+    }
 }
 
 const printCoins = () => {
