@@ -1,10 +1,8 @@
 let flag = 0, i = 0, conisToView = [], idOut, coinToRemove,AllCoins=[];
 
 $(document).ready(function () {
-  //??  localStorage.clear();
-
-    getCoinData()
-  // printCoins("https://api.coingecko.com/api/v3/coins/list");
+    localStorage.clear();
+    printCoins("https://api.coingecko.com/api/v3/coins/list");
 });
 
 $("#homeBtn").click(function () {
@@ -28,9 +26,8 @@ $("#aboutBtn").click(function () {
 
 $("#srchBtn").click(function () {
     $("#out").html('');
-   // url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
-  //  printCoins(url)
-    searchCoin($("#srchFld").val())
+    url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
+    printCoins(url)
 });
 
 
@@ -98,9 +95,9 @@ let removeCoin = () => {
 
 };
 
-const getCoinData = () =>{
+let printCoins = (url) => {
     $.ajax({
-        url: 'https://api.coingecko.com/api/v3/coins/list',
+        url: url,
         type: "GET",
         beforeSend: function () {
             $("#spinnerSend").show();
@@ -108,44 +105,10 @@ const getCoinData = () =>{
         success: function (response) {
             $("#spinnerSend").hide();
             AllCoins=response;
-            printCoins()
-        }
-    });
-};
-
-const searchCoin =(searchTerm)=>{
-    const result = AllCoins.find( fruit => fruit.symbol === searchTerm );
-
- //   alert(JSON.stringify(result))
-  //  alert(result.id)
-   if (typeof result === 'undefined'){
-       $('#out').append(
-           `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
-       )
-   }else{
-
-
-       $('#out').append(
-                    `<div class="col-lg-3 col-md-6 SingleColCss">
-        <div class="card shadow p-3 mb-5">
-            <div class="row no-gutters">
-                <div class="col">
-                    <div class="card-block px-2">
-                       <h4 class="card-title" id="symOut">${result.symbol}</h4><label class="switch"><input type="checkbox" id="${result.symbol}" onchange="checkCoinCount(this.id)" />    <div></div></label>
-                       <p class="card-text" ><span id="nameOut">${result.name}</span></p>
-                          <div class="collapse" id="N${result.id}"></div>
-                                                 <button class="btn btn-info moreBtn" id="${result.id}" onclick="collapseFunc(this.id)" >More Info</button>
-             </div>
-        </div> `
-              )
-   }
-
-
-
-}
-
-const printCoins = () => {
+          //  console.log(AllCoins)
+           // if (url == "https://api.coingecko.com/api/v3/coins/list") {
                 AllCoins.forEach(function (element) {
+
                     $('#out').append(
                         `  
                     <div class="col-lg-3 col-md-6">
@@ -164,10 +127,37 @@ const printCoins = () => {
                     </div> `
                     );
                 });
+        //     } else {
+        //         $('#out').append(
+        //             `<div class="col-lg-3 col-md-6 SingleColCss">
+        // <div class="card shadow p-3 mb-5">
+        //     <div class="row no-gutters">
+        //         <div class="col">
+        //             <div class="card-block px-2">
+        //                 <h4 class="card-title" id="symOut">${response.symbol}</h4><label class="switch"><input type="checkbox" id="${response.symbol}" onchange="checkCoinCount(this.id)" />    <div></div></label>
+        //                 <p class="card-text" ><span id="nameOut">${response.name}</span></p>
+        //                   <div class="collapse" id="N${response.id}"></div>
+        //                                           <button class="btn btn-info moreBtn" id="${response.id}" onclick="collapseFunc(this.id)" >More Info</button>
+        //      </div>
+        //  </div> `
+        //         )
+        //     }
+        },
+
+        statusCode: {
+            404: function () {
+                $("#spinnerSend").hide();
+                $('#out').append(
+                    `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
+                )
+            }
+        }
+
+    });
 };
 
 
-const updateChart = () => {
+let updateChart = () => {
     let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + conisToView[0] + "," + conisToView[1] + "," + conisToView[2] + "," + conisToView[3] + "," + conisToView[4] + "&tsyms=USD"
     $.ajax({
         url: conisUrl,
