@@ -113,6 +113,10 @@ h1 {
     color: white;
 }
 
+#chartContainer{
+    height: 370px;
+    width: 100%;
+}
 
 
 
