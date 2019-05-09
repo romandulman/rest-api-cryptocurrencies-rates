@@ -1,4 +1,3 @@
-
 h1 {
     font-size: 25px;
 }
@@ -25,7 +24,6 @@ h1 {
     font-weight: bold;
     font-size: 16pt;
 }
-
 
 #spinnerSend {
     margin-top: 200px;
@@ -114,16 +112,17 @@ h1 {
     color: white;
 }
 
-#chartContainer{
+#chartContainer {
     height: 370px;
     width: 100%;
 }
 
-.SwModal{
+.SwModal {
     float: left;
 
 }
-.CoinTextMod{
+
+.CoinTextMod {
     margin: 10px;
 }
 

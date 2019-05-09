@@ -116,11 +116,8 @@ let searchCoin = (searchTerm) => {
             );
             if (conisToView.length > 0) {
                 for (let k = 0; k < conisToView.length; k++) {
-
                     const result = AllCoins.find(Coin => Coin.symbol === conisToView[k].toLowerCase());
                     $("#" + result.symbol).prop("checked", true);
-
-                    console.log(result)
 
                 }
             }
@@ -150,11 +147,8 @@ const printCoins = () => {
         )
         if (conisToView.length > 0) {
             for (let k = 0; k < conisToView.length; k++) {
-
                 const result = AllCoins.find(Coin => Coin.symbol === conisToView[k].toLowerCase());
                 $("#" + result.symbol).prop("checked", true);
-
-                console.log(result)
 
             }
         }
@@ -335,7 +329,7 @@ let collapseFunc = (coinId) => {
     }
 };
 
-printMoreInfo = (coinId, img, usd, eur, ils) => {
+let printMoreInfo = (coinId, img, usd, eur, ils) => {
     $("#N" + coinId).html("");
     $("#N" + coinId).append(
         `
