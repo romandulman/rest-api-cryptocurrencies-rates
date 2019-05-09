@@ -1,11 +1,13 @@
-let flag = 0, i = 0, conisToView = [], idOut, coinToRemove,AllCoins=[];
+let flag = 0, i = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
 
 $(document).ready(function () {
-  //??  localStorage.clear();
+    //??  localStorage.clear();
 
     getCoinData()
-  // printCoins("https://api.coingecko.com/api/v3/coins/list");
+    // printCoins("https://api.coingecko.com/api/v3/coins/list");
 });
+$("#out").onbeforeunload = function () {             $("#spinnerSend").show();
+}
 
 $("#homeBtn").click(function () {
     $('#outReports').hide();
@@ -28,8 +30,8 @@ $("#aboutBtn").click(function () {
 
 $("#srchBtn").click(function () {
     $("#out").html('');
-   // url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
-  //  printCoins(url)
+    // url = "https://api.coingecko.com/api/v3/coins/" + $("#srchFld").val();
+    //  printCoins(url)
     searchCoin($("#srchFld").val())
 });
 
@@ -39,24 +41,16 @@ let checkCoinCount = (id) => {
     let idUpperCase = id.toString().toUpperCase();
     if ($("#" + id).is(':checked')) {
         conisToView.push(idUpperCase);
-
-        console.log(conisToView);
-
+        //  console.log(conisToView);
         if (conisToView.length > 5) {
             $('#coinModal').modal('show');
             $('#modalCoinList').html('');
             for (let i = 0; i < 5; i++) {
                 $('#modalCoinList').append(
-                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="${conisToView[i]}" onchange="SetremCoin(this.id)"/><div></div></label>`
-                )
+                    `<div>${conisToView[i]}</div> <label class="switch"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label>`
+                );
 
-                if (isNaN(conisToView[i])) {
-                    $("#" + conisToView[i]).prop("checked", true)
-                } else {
-                    let idLowerCase = conisToView[i].toString().toLowerCase();
-                    $("#" + idLowerCase).prop("checked", true)
-                }
-
+                $("#C" + conisToView[i]).prop("checked", true);
             }
             console.log(conisToView);
         }
@@ -67,10 +61,10 @@ let checkCoinCount = (id) => {
         console.log(conisToView)
     }
     updateChart();
-
 };
 
-let SetremCoin = (id) => {
+let SetRemCoin = (id) => {
+    id = id.substring(1); //
     coinToRemove = id;
 }
 
@@ -78,8 +72,8 @@ $("#CancelModalBtn").click(function () {
     $("#" + idOut).attr('checked', false)
     conisToView.splice(-1, 1)
     console.log(conisToView);
-
 });
+
 $("#RemoveCoinBtn").click(function () {
     removeCoin()
 });
@@ -88,17 +82,13 @@ let removeCoin = () => {
     const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
     conisToView.splice(index, 1);
     console.log(conisToView);
-    alert(coinToRemove);
     let idLowerCase = coinToRemove.toString().toLowerCase();
-
     $("#" + idLowerCase).prop("checked", false);
-    alert(idLowerCase);
     $('#coinModal').modal('hide');
     updateChart();
-
 };
 
-const getCoinData = () =>{
+const getCoinData = () => {
     $.ajax({
         url: 'https://api.coingecko.com/api/v3/coins/list',
         type: "GET",
@@ -107,23 +97,26 @@ const getCoinData = () =>{
         },
         success: function (response) {
             $("#spinnerSend").hide();
-            AllCoins=response;
+            AllCoins = response;
             printCoins()
         }
     });
 };
 
 const searchCoin = (searchTerm) => {
-    (searchTerm === searchTerm.toUpperCase()) ? searchTerm = searchTerm.toLowerCase() : searchTerm = searchTerm;
-    const result = AllCoins.find(fruit => fruit.symbol === searchTerm);
+    if (searchTerm.length == 0) {
 
-    if (typeof result === 'undefined') {
-        $('#out').append(
-            `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
-        )
+        printCoins()
     } else {
-        $('#out').append(
-            `<div class="col-lg-3 col-md-6 SingleColCss">
+        (searchTerm === searchTerm.toUpperCase()) ? searchTerm = searchTerm.toLowerCase() : searchTerm = searchTerm;
+        const result = AllCoins.find(fruit => fruit.symbol === searchTerm);
+        if (typeof result === 'undefined') {
+            $('#out').append(
+                `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
+            )
+        } else {
+            $('#out').append(
+                `<div class="col-lg-3 col-md-6 SingleColCss">
         <div class="card shadow p-3 mb-5">
             <div class="row no-gutters">
                 <div class="col">
@@ -134,14 +127,15 @@ const searchCoin = (searchTerm) => {
                                                  <button class="btn btn-info moreBtn" id="${result.id}" onclick="collapseFunc(this.id)" >More Info</button>
              </div>
         </div> `
-        )
+            )
+        }
     }
 }
 
 const printCoins = () => {
-                AllCoins.forEach(function (element) {
-                    $('#out').append(
-                        `  
+    AllCoins.forEach(function (element) {
+        $('#out').append(
+            `  
                     <div class="col-lg-3 col-md-6">
                       <div class="card shadow p-3 mb-5 cardCss">
                          <div class="row no-gutters">
@@ -156,8 +150,8 @@ const printCoins = () => {
                               <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
                       </div>
                     </div> `
-                    );
-                });
+        );
+    });
 };
 
 
@@ -167,24 +161,23 @@ const updateChart = () => {
         url: conisUrl,
         type: "GET",
         success: function (response) {
-            console.log(response[conisToView[0]]);
-            console.log(response[conisToView[1]]);
-            console.log(response[conisToView[2]]);
-            console.log(response[conisToView[3]]);
-            console.log(response[conisToView[4]]);
+            // console.log(response[conisToView[0]]);
+            // console.log(response[conisToView[1]]);
+            // console.log(response[conisToView[2]]);
+            // console.log(response[conisToView[3]]);
+            // console.log(response[conisToView[4]]);
 
             var dataPoints1 = [];
             var dataPoints2 = [];
             var dataPoints3 = [];
             var dataPoints4 = [];
             var dataPoints5 = [];
-            var mainText, coin1, coin2, coin3, coin4, coin5;
             var updateInterval = 2000;
 
             var options = {
-                title: {
-                    text: mainText
-                },
+                // title: {
+                //   text: mainText
+                //  },
                 axisX: {
                     title: "chart updates every 2 secs"
                 },
@@ -280,11 +273,10 @@ const updateChart = () => {
                         y: (typeof response[conisToView[4]] === 'undefined') ? 0 : response[conisToView[4]].USD
                     });
                 }
-                options.data[0].legendText = (typeof response[conisToView[0]] === 'undefined') ? "0" : conisToView[0] + " is" + " " + response[conisToView[0]].USD + " USD";
-                options.data[1].legendText = (typeof response[conisToView[1]] === 'undefined') ? "0" : conisToView[1] + " is" + " " + response[conisToView[1]].USD + " USD";
-                options.data[2].legendText = (typeof response[conisToView[2]] === 'undefined') ? "0" : conisToView[2] + " is" + " " + response[conisToView[2]].USD + " USD";
-                options.data[3].legendText = (typeof response[conisToView[3]] === 'undefined') ? "0" : conisToView[3] + " is" + " " + response[conisToView[3]].USD + " USD";
-                options.data[4].legendText = (typeof response[conisToView[4]] === 'undefined') ? "0" : conisToView[4] + " is" + " " + response[conisToView[4]].USD + " USD";
+                for (let i = 0; i < 5; i++) {
+                    options.data[i].legendText = (typeof response[conisToView[i]] === 'undefined') ? "0" : conisToView[i] + " is" + " " + response[conisToView[i]].USD + " USD";
+
+                }
 
                 $("#chartContainer").CanvasJSChart().render();
             }
@@ -305,8 +297,6 @@ const updateChart = () => {
         }
 
     });
-
-
 };
 
 
@@ -342,7 +332,7 @@ let collapseFunc = (coinId) => {
         });
 
     } else {
-        var retrievedObject = JSON.parse(localStorage.getItem(coinId));
+        let retrievedObject = JSON.parse(localStorage.getItem(coinId));
         printMoreInfo(coinId, retrievedObject.img, retrievedObject.usd, retrievedObject.eur, retrievedObject.ils)
     }
 };
