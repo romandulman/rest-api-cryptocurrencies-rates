@@ -3,7 +3,6 @@ let flag = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
 $(document).ready(function () {
     localStorage.clear();
     getCoinData()
-
 });
 
 $("#homeBtn").click(function () {
@@ -13,7 +12,6 @@ $("#homeBtn").click(function () {
 });
 
 $("#liveRepBtn").click(function () {
-    // $('#out').html('');
     $('#About').hide();
     $('#out').hide();
     $('#outReports').show();
@@ -54,23 +52,22 @@ let checkCoinCount = (id) => {
 };
 
 let SetRemCoin = (id) => {
-    id = id.substring(1); //
+    id = id.substring(1);
     coinToRemove = id;
 }
 
 $("#CancelModalBtn").click(function () {
-    $("#" + idOut).attr('checked', false)
-    conisToView.splice(-1, 1)
+    $("#" + idOut).attr('checked', false);
+    conisToView.splice(-1, 1);
 });
 
 $("#RemoveCoinBtn").click(function () {
-    removeCoin()
+    removeCoin();
 });
 
-let removeCoin = () => {
+const removeCoin = () => {
     const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
     conisToView.splice(index, 1);
-  //  console.log(conisToView);
     let idLowerCase = coinToRemove.toString().toLowerCase();
     $("#" + idLowerCase).prop("checked", false);
     $('#coinModal').modal('hide');
@@ -87,16 +84,15 @@ const getCoinData = () => {
         success: function (response) {
             $("#spinnerSend").hide();
             AllCoins = response;
-            printCoins()
+            printCoins();
         }
     });
 };
-
-const searchCoin = (searchTerm) => {
+let searchCoin = (searchTerm) => {
     if (searchTerm.length == 0) {
-        printCoins()
+        printCoins();
     } else {
-        (searchTerm === searchTerm.toUpperCase()) ? searchTerm = searchTerm.toLowerCase() : searchTerm ;
+        (searchTerm === searchTerm.toUpperCase()) ? searchTerm = searchTerm.toLowerCase() : searchTerm;
         const result = AllCoins.find(Coin => Coin.symbol === searchTerm);
         if (typeof result === 'undefined') {
             $('#out').append(
@@ -109,11 +105,11 @@ const searchCoin = (searchTerm) => {
             <div class="row no-gutters">
                 <div class="col">
                     <div class="card-block px-2">
-                       <h4 class="card-title" id="symOut">${result.symbol}</h4><label class="switch"><input type="checkbox" id="${result.symbol}" onchange="checkCoinCount(this.id)" />    <div></div></label>
+                       <h4 class="card-title" id="symOut">${result.symbol}</h4><label class="switch"><input type="checkbox" id="${result.symbol}" onchange="checkCoinCount(this.id)" /> <div></div></label>
                        <p class="card-text" ><span id="nameOut">${result.name}</span></p>
                           <div class="collapse" id="N${result.id}"></div>
                                                  <button class="btn btn-info moreBtn" id="${result.id}" onclick="collapseFunc(this.id)" >More Info</button>
-             </div>
+              </div>
         </div> `
             )
 
@@ -122,7 +118,7 @@ const searchCoin = (searchTerm) => {
 }
 
 const printCoins = () => {
-        AllCoins.forEach(function (element) {
+    AllCoins.forEach(function (element) {
         $('#out').append(
             `  
                     <div class="col-lg-3 col-md-6">
@@ -140,10 +136,9 @@ const printCoins = () => {
                       </div>
                     </div> `
         );
-
     });
-    $( "#out" ).ready(function() {
-        $( "#spinnerSend" ).hide()
+    $("#out").ready(function () {
+        $("#spinnerSend").hide()
     });
 };
 
@@ -243,23 +238,28 @@ const updateChart = () => {
                     dataPoints1.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[0]] === 'undefined') ? 0 : response[conisToView[0]].USD
-                    });
+                })
+                    ;
                     dataPoints2.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[1]] === 'undefined') ? 0 : response[conisToView[1]].USD
-                    });
+                })
+                    ;
                     dataPoints3.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[2]] === 'undefined') ? 0 : response[conisToView[2]].USD
-                    });
+                })
+                    ;
                     dataPoints4.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[3]] === 'undefined') ? 0 : response[conisToView[3]].USD
-                    });
+                })
+                    ;
                     dataPoints5.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[4]] === 'undefined') ? 0 : response[conisToView[4]].USD
-                    });
+                })
+                    ;
                 }
                 for (let x = 0; x < 5; x++) {
                     options.data[x].legendText = (typeof response[conisToView[x]] === 'undefined') ? "0" : conisToView[x] + " is" + " " + response[conisToView[x]].USD + " USD";
@@ -271,18 +271,9 @@ const updateChart = () => {
 
             updateChart(100);
             setInterval(function () {
-                updateChart()
+                updateChart();
             }, updateInterval);
         },
-
-        statusCode: {
-            404: function () {
-                $("#spinnerSend").hide();
-                $('#out').append(
-                    `<p class="errMsg">Sorry! No such coin, Try again.... </p>`
-                )
-            }
-        }
 
     });
 };
