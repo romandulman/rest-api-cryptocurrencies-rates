@@ -257,27 +257,27 @@ const updateChart = () => {
                     dataPoints1.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[0]] === 'undefined') ? 0 : response[conisToView[0]].USD
-                })
+                    })
                     ;
                     dataPoints2.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[1]] === 'undefined') ? 0 : response[conisToView[1]].USD
-                })
+                    })
                     ;
                     dataPoints3.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[2]] === 'undefined') ? 0 : response[conisToView[2]].USD
-                })
+                    })
                     ;
                     dataPoints4.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[3]] === 'undefined') ? 0 : response[conisToView[3]].USD
-                })
+                    })
                     ;
                     dataPoints5.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[4]] === 'undefined') ? 0 : response[conisToView[4]].USD
-                })
+                    })
                     ;
                 }
                 for (let x = 0; x < 5; x++) {
