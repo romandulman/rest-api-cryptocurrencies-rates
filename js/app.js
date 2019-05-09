@@ -6,25 +6,22 @@ $(document).ready(function () {
 });
 
 $("#homeBtn").click(function () {
-  //  $('#outReports').hide();
-   // $('#About').hide();
-  //  $('#out').show();
-    printCoins()
+    $('#outReports').hide();
+    $('#About').hide();
+    $('#out').show();
 });
 
 $("#liveRepBtn").click(function () {
-    // $('#About').hide();
-    // $('#out').hide();
-    // $('#outReports').show();
-    $('#out').html('');
-    $('#out').append(liveReports);
+    $('#About').hide();
+    $('#out').hide();
+    $('#outReports').show();
+    updateChart()
 });
 
 $("#aboutBtn").click(function () {
-    // $('#out').hide();
-    // $('#outReports').hide();
-    // $('#About').show();
-    
+    $('#out').hide();
+    $('#outReports').hide();
+    $('#About').show();
 });
 
 $("#srchBtn").click(function () {
@@ -40,26 +37,6 @@ $("#CancelModalBtn").click(function () {
 $("#RemoveCoinBtn").click(function () {
     removeCoin();
 });
-
-const aboutMe = ` <div id="About">
-            <div class="card shadow p-3 mb-5 ">
-                <div class="row no-gutters">
-                    <div class="col">
-                        <h1>About Me</h1>
-                        <img src="https://avatars2.githubusercontent.com/u/47609139?s=460&v=4" alt="Roman-Dulman" height="170">
-                        <p><h6><strong>Roman Dulman</strong></h6> </p>
-                        <p><h6>ID: 306033143</h6></p>
-                        <hr>
-                        <p><em class="fas fa-coins"></em><strong>&nbsp; Cryptonite</strong></span></p>
-                        <p>This project demonstrates implementation of  REST api, Canvas. JS for live graph report and Bootstrap for theming.</p>
-                        <p>With "Coin-Gecko" REST Api we retrieve Cypto-Currencies list and the properties of each currency and with the "Crypto-Compare" REST Api us push Crypto-Currencies rates data in live and shows it on "Canvas.JS" Graph. </p>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>`
-
-const liveReports = `<div id="chartContainer"></div>`
 
 let checkCoinCount = (id) => {
     idOut = id;
