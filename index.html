@@ -5,86 +5,92 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
-    <br>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded  fixed-top" >
-        <span class=" navBrand" href="#"><em class="fas fa-coins"></em>&nbsp; Cryptonite</span>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navb">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <button type="button" class="btn NavBtn " id="homeBtn">Home</button>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="btn NavBtn" id="liveRepBtn">Live Reports</button>
-                </li>
-                <li class="nav-item ">
-                    <button type="button" class="btn NavBtn" id="aboutBtn">About</button>
-                </li>
-            </ul>
-            <div class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" id="srchFld">
-                <button class="btn btn-success my-2 my-sm-0" type="button" id="srchBtn" data-toggle="tooltip" data-placement="bottom" title="Search Coin"><em class="fas fa-search"></em></button>
-            </div>
+<br>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded  fixed-top">
+    <span class=" navBrand" href="#"><em class="fas fa-coins"></em>&nbsp; Cryptonite</span>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navb">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <button type="button" class="btn NavBtn " id="homeBtn">Home</button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn NavBtn" id="liveRepBtn">Live Reports</button>
+            </li>
+            <li class="nav-item ">
+                <button type="button" class="btn NavBtn" id="aboutBtn">About</button>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" id="srchFld">
+            <button class="btn btn-success my-2 my-sm-0" type="button" id="srchBtn" data-toggle="tooltip"
+                    data-placement="bottom" title="Search Coin"><em class="fas fa-search"></em></button>
         </div>
-    </nav>
-    <br>
-    <div class="container coinCont">
-        <div class="row">
+    </div>
+</nav>
+<br>
+<div class="container coinCont">
+    <div class="row">
         <div class="row spinnerCont ">
             <div class="spinner-border text-primary " id="spinnerSend" role="status">
             </div>
         </div>
-        </div>
-        <div id="out" class="row">
-        </div>
-        <div id="outReports" class="row">
-            <div id="chartContainer"></div>
-        </div>
-        <div id="About">
-            <div class="card shadow p-3 mb-5 ">
-                <div class="row no-gutters">
-                    <div class="col">
-                        <h1>About Me</h1>
-                        <img src="https://avatars2.githubusercontent.com/u/47609139?s=460&v=4" alt="Roman-Dulman" height="170">
-                        <p><h6><strong>Roman Dulman</strong></h6> </p>
-                        <p><h6>ID: 306033143</h6></p>
-                        <hr>
-                        <p><em class="fas fa-coins"></em><strong>&nbsp; Cryptonite</strong></span></p>
-                        <p>This project demonstrates implementation of  REST api, Canvas. JS for live graph report and Bootstrap for theming.</p>
-                        <p>With "Coin-Gecko" REST Api we retrieve Cypto-Currencies list and the properties of each currency and with the "Crypto-Compare" REST Api us push Crypto-Currencies rates data in live and shows it on "Canvas.JS" Graph. </p>
+    </div>
+    <div id="out" class="row">
+    </div>
+    <div id="outReports" class="row">
+        <div id="chartContainer"></div>
+    </div>
+    <div id="About">
+        <div class="card shadow p-3 mb-5 ">
+            <div class="row no-gutters">
+                <div class="col">
+                    <h1>About Me</h1>
+                    <img src="https://avatars2.githubusercontent.com/u/47609139?s=460&v=4" alt="Roman-Dulman"
+                         height="170">
+                    <p><h6><strong>Roman Dulman</strong></h6> </p>
+                    <p><h6>ID: 306033143</h6></p>
+                    <hr>
+                    <p><em class="fas fa-coins"></em><strong>&nbsp; Cryptonite</strong></span></p>
+                    <p>This project demonstrates implementation of REST api, Canvas. JS for live graph report and
+                        Bootstrap for theming.</p>
+                    <p>With "Coin-Gecko" REST Api we retrieve Cypto-Currencies list and the properties of each currency
+                        and with the "Crypto-Compare" REST Api us push Crypto-Currencies rates data in live and shows it
+                        on "Canvas.JS" Graph. </p>
 
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal" id="coinModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Remove Coin</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body ">
-                    <p>Only <strong>5</strong> coins allowed for live reports, Please remove one</p>
-                    <div id="modalCoinList"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="RemoveCoinBtn"  >Save changes</button>
-                    <button type="button" class="btn btn-secondary" id="CancelModalBtn" data-dismiss="modal">Cancel</button>
-                </div>
+<div class="modal" id="coinModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Remove Coin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <p>Only <strong>5</strong> coins allowed for live reports, Please remove one</p>
+                <div id="modalCoinList"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="RemoveCoinBtn">Save changes</button>
+                <button type="button" class="btn btn-secondary" id="CancelModalBtn" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
+</div>
 
 
 <!--<script src="js/jquery-3.3.1.min.js"></script>-->
