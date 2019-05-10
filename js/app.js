@@ -9,7 +9,12 @@ $("#homeBtn").click(function () {
     $('#outReports').hide();
     $('#About').hide();
     $('#out').show();
-    printCoins();
+
+    if($("#srchFld").val().length > 0){
+        $('#out').html('');
+        $("#srchFld").val('');
+        printCoins();
+    }
 });
 
 $("#liveRepBtn").click(function () {
