@@ -2,6 +2,7 @@ let StatFlg = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
 
 $(document).ready(function () {
     localStorage.clear();
+    $('input').tooltip();
     getCoinData()
 });
 

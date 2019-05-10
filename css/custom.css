@@ -9,7 +9,6 @@ h1 {
     position: fixed;
     z-index: 9999;
     background-color: white;
-
 }
 
 #outReports {
@@ -26,6 +25,10 @@ h1 {
 #chartContainer {
     height: 370px;
     width: 100%;
+}
+
+#srchBtn:hover {
+    background-color: green;
 }
 
 .cardCss {
