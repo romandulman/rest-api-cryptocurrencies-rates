@@ -2,20 +2,21 @@ let StatFlg = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
 
 $(document).ready(function () {
     localStorage.clear();
-    getCoinData()
+    getCoinData();
 });
 
 $("#homeBtn").click(function () {
     $('#outReports').hide();
     $('#About').hide();
     $('#out').show();
+    printCoins();
 });
 
 $("#liveRepBtn").click(function () {
     $('#About').hide();
     $('#out').hide();
     $('#outReports').show();
-    updateChart()
+    updateChart();
 });
 
 $("#aboutBtn").click(function () {
@@ -26,7 +27,7 @@ $("#aboutBtn").click(function () {
 
 $("#srchBtn").click(function () {
     $("#out").html('');
-    searchCoin($("#srchFld").val())
+    searchCoin($("#srchFld").val());
 });
 
 $("#CancelModalBtn").click(function () {
@@ -114,6 +115,9 @@ let searchCoin = (searchTerm) => {
               </div>
         </div> `
             );
+            $("#out").ready(function(){
+                $("#spinnerSend").hide();
+            })
             if (conisToView.length > 0) {
                 for (let k = 0; k < conisToView.length; k++) {
                     const result = AllCoins.find(Coin => Coin.symbol === conisToView[k].toLowerCase());
@@ -144,7 +148,10 @@ const printCoins = () => {
                               <button class="btn btn-info moreBtn" id="${element.id}" onclick="collapseFunc(this.id)" >More Info</button>
                       </div>
                     </div> `
-        )
+        );
+
+
+
         if (conisToView.length > 0) {
             for (let k = 0; k < conisToView.length; k++) {
                 const result = AllCoins.find(Coin => Coin.symbol === conisToView[k].toLowerCase());
@@ -178,7 +185,7 @@ const updateChart = () => {
                     title: "chart updates every 2 secs"
                 },
                 axisY: {
-                    suffix: " $",
+                    suffix: "$",
                     includeZero: false
                 },
                 toolTip: {
@@ -334,6 +341,6 @@ let printMoreInfo = (coinId, img, usd, eur, ils) => {
                  <p>${usd}$ <b>USD</b></p>
                  <p>${eur}€ <b>EUR</b></p> 
                  <p>${ils}₪ <b>ILS</b></p>`
-    )
+    );
 };
 
