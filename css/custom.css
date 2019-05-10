@@ -2,6 +2,32 @@ h1 {
     font-size: 25px;
 }
 
+#spinnerSend {
+    margin-top: 200px;
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    z-index: 9999;
+    background-color: white;
+
+}
+
+#outReports {
+    display: none;
+}
+
+#About {
+    display: none;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#chartContainer {
+    height: 370px;
+    width: 100%;
+}
+
 .cardCss {
     margin: 5px;
 
@@ -23,16 +49,6 @@ h1 {
     color: #2e7d32;
     font-weight: bold;
     font-size: 16pt;
-}
-
-#spinnerSend {
-    margin-top: 200px;
-    width: 80px;
-    height: 80px;
-    position: fixed;
-    z-index: 9999;
-    background-color: white;
-
 }
 
 .spinnerCont {
@@ -59,6 +75,7 @@ h1 {
     background: #BDB9A6;
     border-radius: 1em;
     float: right;
+    cursor: pointer;
 }
 
 .switch div {
@@ -91,17 +108,6 @@ h1 {
     margin-bottom: -15px;
 }
 
-#outReports {
-    display: none;
-}
-
-#About {
-    display: none;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .NavBtn {
     margin: 5px;
     font-weight: 500;
@@ -110,11 +116,6 @@ h1 {
 .NavBtn:hover {
     background-color: green;
     color: white;
-}
-
-#chartContainer {
-    height: 370px;
-    width: 100%;
 }
 
 .SwModal {

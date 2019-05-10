@@ -1,4 +1,4 @@
-let flag = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
+let StatFlg = 0, conisToView = [], idOut, coinToRemove, AllCoins = [];
 
 $(document).ready(function () {
     localStorage.clear();
@@ -48,7 +48,7 @@ let checkCoinCount = (id) => {
             $('#modalCoinList').html('');
             for (let i = 0; i < 5; i++) {
                 $('#modalCoinList').append(
-                    `<div class="row"><div class="col"> <span class="CoinTextMod">${conisToView[i]}</span> <label class="switch SwModal"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label> </div></div>`
+                    `<div class="row"><div class="col"><span class="CoinTextMod">${conisToView[i]}</span><label class="switch SwModal"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label></div></div>`
                 );
                 $("#C" + conisToView[i]).prop("checked", true);
             }
@@ -247,7 +247,6 @@ const updateChart = () => {
                 count = count || 1;
                 for (let i = 0; i < count; i++) {
                     time.setTime(time.getTime() + updateInterval);
-
                     dataPoints1.push({
                         x: time.getTime(),
                         y: (typeof response[conisToView[0]] === 'undefined') ? 0 : response[conisToView[0]].USD
@@ -276,7 +275,6 @@ const updateChart = () => {
                 }
                 for (let x = 0; x < 5; x++) {
                     options.data[x].legendText = (typeof response[conisToView[x]] === 'undefined') ? "0" : conisToView[x] + " is" + " " + response[conisToView[x]].USD + " USD";
-
                 }
 
                 $("#chartContainer").CanvasJSChart().render();
@@ -296,9 +294,8 @@ let collapseFunc = (coinId) => {
     $("#N" + coinId).toggle();
     let url = 'https://api.coingecko.com/api/v3/coins/' + coinId;
     var retrievedObject1 = JSON.parse(localStorage.getItem(coinId));
-
-    if (retrievedObject1 == null) flag = 0;
-    if (flag == 0) {
+    if (retrievedObject1 == null) StatFlg = 0;
+    if (StatFlg == 0) {
         $.ajax({
             url: url,
             type: "GET",
@@ -316,13 +313,11 @@ let collapseFunc = (coinId) => {
                     'img': response.image.small
                 };
                 localStorage.setItem(coinId, JSON.stringify(testObject));
-
-                flag = 1;
-                setTimeout(() => flag = 0, 120000);
+                StatFlg = 1;
+                setTimeout(() => StatFlg = 0, 120000);
             },
 
         });
-
     } else {
         let retrievedObject = JSON.parse(localStorage.getItem(coinId));
         printMoreInfo(coinId, retrievedObject.img, retrievedObject.usd, retrievedObject.eur, retrievedObject.ils)
@@ -336,9 +331,9 @@ let printMoreInfo = (coinId, img, usd, eur, ils) => {
                   <img src="${img}"/>
                   <br>
                  <p><b>Conversion Rates </b></p>
-                 <p>${usd} <b>USD</b></p>
-                 <p>${eur} <b>EUR</b></p> 
-                 <p>${ils} <b>ILS</b></p>`
+                 <p>${usd}$ <b>USD</b></p>
+                 <p>${eur}€ <b>EUR</b></p> 
+                 <p>${ils}₪ <b>ILS</b></p>`
     )
 };
 
