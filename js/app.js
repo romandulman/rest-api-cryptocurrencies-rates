@@ -215,7 +215,7 @@ const updateChart = () => {
                     xValueType: "dateTime",
                     yValueFormatString: "###.#00$",
                     xValueFormatString: "hh:mm:ss TT",
-                    showInLegend: (typeof response[conisToView[0]] === 'undefined') ? false : true,
+                    showInLegend: true,
                     dataPoints: dataPoints1
                 },
                     {
