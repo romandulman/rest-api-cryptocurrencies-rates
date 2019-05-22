@@ -10,7 +10,7 @@ $("#homeBtn").click(function () {
     $('#About').hide();
     $('#out').show();
 
-    if($("#srchFld").val().length > 0){
+    if ($("#srchFld").val().length > 0) {
         $('#out').html('');
         $("#srchFld").val('');
         printCoins();
@@ -44,28 +44,6 @@ $("#RemoveCoinBtn").click(function () {
     removeCoin();
 });
 
-let checkCoinCount = (id) => {
-    idOut = id;
-    let idUpperCase = id.toString().toUpperCase();
-    if ($("#" + id).is(':checked')) {
-        conisToView.push(idUpperCase);
-        if (conisToView.length > 5) {
-            $('#coinModal').modal('show');
-            $('#modalCoinList').html('');
-            for (let i = 0; i < 5; i++) {
-                $('#modalCoinList').append(
-                    `<div class="row"><div class="col"><span class="CoinTextMod">${conisToView[i]}</span><label class="switch SwModal"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label></div></div>`
-                );
-                $("#C" + conisToView[i]).prop("checked", true);
-            }
-        }
-    }
-    else if ($("#" + id).is(':checked') == false) {
-        const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
-        conisToView.splice(index, 1);
-    }
-    updateChart();
-};
 
 let SetRemCoin = (id) => {
     id = id.substring(1);
@@ -120,7 +98,7 @@ let searchCoin = (searchTerm) => {
               </div>
         </div> `
             );
-            $("#out").ready(function(){
+            $("#out").ready(function () {
                 $("#spinnerSend").hide();
             })
             if (conisToView.length > 0) {
@@ -155,8 +133,6 @@ const printCoins = () => {
                     </div> `
         );
 
-
-
         if (conisToView.length > 0) {
             for (let k = 0; k < conisToView.length; k++) {
                 const result = AllCoins.find(Coin => Coin.symbol === conisToView[k].toLowerCase());
@@ -167,6 +143,41 @@ const printCoins = () => {
     });
 };
 
+let checkCoinCount = (id) => {
+    idOut = id;
+    let idUpperCase = id.toString().toUpperCase();
+    if ($("#" + id).is(':checked')) {
+        let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + idUpperCase + "&tsyms=USD";
+        $.ajax({
+            url: conisUrl,
+            type: "GET",
+            success: function (response) {
+                (typeof response[idUpperCase] === 'undefined') ? $("#" + id).prop("checked", false) & alert('The Coin is to exist in the api for live data please choose another one') : conisToView.push(idUpperCase)
+
+                console.log(conisToView);
+
+                if (conisToView.length > 5) {
+                    $('#coinModal').modal('show');
+                    $('#modalCoinList').html('');
+                    for (let i = 0; i < 5; i++) {
+                        $('#modalCoinList').append(
+                            `<div class="row"><div class="col"><span class="CoinTextMod">${conisToView[i]}</span><label class="switch SwModal"><input type="checkbox" id="C${conisToView[i]}" onchange="SetRemCoin(this.id)"/><div></div></label></div></div>`
+                        );
+                        $("#C" + conisToView[i]).prop("checked", true);
+                    }
+                }
+            },
+
+
+        })
+
+    }
+    else if ($("#" + id).is(':checked') == false) {
+        const index = conisToView.findIndex(conisToView => conisToView === idUpperCase);
+        conisToView.splice(index, 1);
+    }
+    updateChart();
+};
 
 const updateChart = () => {
     let conisUrl = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" + conisToView[0] + "," + conisToView[1] + "," + conisToView[2] + "," + conisToView[3] + "," + conisToView[4] + "&tsyms=USD"
