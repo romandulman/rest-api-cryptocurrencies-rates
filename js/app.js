@@ -48,7 +48,7 @@ $("#RemoveCoinBtn").click(function () {
 let SetRemCoin = (id) => {
     id = id.substring(1);
     coinToRemove = id;
-}
+};
 
 const removeCoin = () => {
     const index = conisToView.findIndex(conisToView => conisToView === coinToRemove);
@@ -152,7 +152,7 @@ let checkCoinCount = (id) => {
             url: conisUrl,
             type: "GET",
             success: function (response) {
-                (typeof response[idUpperCase] === 'undefined') ? $("#" + id).prop("checked", false) & alert('The Coin is to exist in the api for live data please choose another one') : conisToView.push(idUpperCase)
+                (typeof response[idUpperCase] === 'undefined') ? $("#" + id).prop("checked", false) & alert('The Coin is not exists in the API for live data, please choose another one') : conisToView.push(idUpperCase)
                 if (conisToView.length > 5) {
                     $('#coinModal').modal('show');
                     $('#modalCoinList').html('');
@@ -165,7 +165,6 @@ let checkCoinCount = (id) => {
                 }
             },
 
-
         })
 
     }
@@ -174,8 +173,6 @@ let checkCoinCount = (id) => {
         conisToView.splice(index, 1);
     }
     updateChart();
-    console.log(conisToView);
-
 };
 
 const updateChart = () => {
