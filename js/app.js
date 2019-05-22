@@ -153,9 +153,6 @@ let checkCoinCount = (id) => {
             type: "GET",
             success: function (response) {
                 (typeof response[idUpperCase] === 'undefined') ? $("#" + id).prop("checked", false) & alert('The Coin is to exist in the api for live data please choose another one') : conisToView.push(idUpperCase)
-
-                console.log(conisToView);
-
                 if (conisToView.length > 5) {
                     $('#coinModal').modal('show');
                     $('#modalCoinList').html('');
@@ -177,6 +174,8 @@ let checkCoinCount = (id) => {
         conisToView.splice(index, 1);
     }
     updateChart();
+    console.log(conisToView);
+
 };
 
 const updateChart = () => {
