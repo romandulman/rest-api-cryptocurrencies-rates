@@ -1,2 +1,10 @@
-##Cryptocurrencies Rates REST Api
-ES6 JS HTML5 Cryptocurrencies rates REST Api implementation and Canvas.JS with AJAX, JQuery and Bootstrap
+# Cryptonite
+### Cryptocurrencies Rates App
+
+* JavaScript ES6 
+* HTML5
+* REST API endpoint consumption
+* JQuery
+* Bootstrap
+
+### Live Version:  http://crypto.romandulman.com/
