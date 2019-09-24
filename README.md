@@ -1,5 +1,5 @@
 # Cryptonite
-### Cryptocurrencies Rates App
+### Cryptocurrencies Rates SPA App
 
 * JavaScript ES6 
 * HTML5
