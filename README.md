@@ -3,8 +3,10 @@
 
 * JavaScript ES6 
 * HTML5
-* REST API endpoint consumption
+* Ajax
+* REST API endpoints consumption: https://api.coingecko.com/ and https://min-api.cryptocompare.com/
 * JQuery
+* Charts With Canvas.js
 * Bootstrap
 
 ### Live Version:  http://crypto.romandulman.com/
